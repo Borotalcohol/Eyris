@@ -1,9 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
+import {
+  FilesetResolver,
+  FaceLandmarker,
+  NormalizedLandmark,
+} from "@mediapipe/tasks-vision";
 import { inferenceDirectionClassifier } from "../utils/predict";
 
 const WebcamComponent: React.FC = () => {
+  let faceLandmarker: FaceLandmarker | null = null;
   const webcamRef = useRef<Webcam>(null);
   const leftEyeImageCanvasRef = useRef<HTMLCanvasElement>(null);
   const rightEyeImageCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,57 +26,94 @@ const WebcamComponent: React.FC = () => {
     loadModels();
   }, []);
 
+  // useEffect(() => {
+  //   // Set up interval to run inference every 250ms
+  //   const inferenceInterval = setInterval(() => {
+  //     detectFaceLandmarks();
+  //   }, 250);
+
+  //   // Clear the interval when the component is unmounted
+  //   return () => clearInterval(inferenceInterval);
+  // }, []);
+
+  const initializeFaceLandmarker = async () => {
+    const vision = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+    );
+    faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
+      baseOptions: {
+        modelAssetPath: "/models/face_landmarker.task",
+      },
+    });
+  };
+
   const detectFaceLandmarks = async () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video as HTMLVideoElement;
-      const result = await faceapi
-        .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks();
 
-      console.log(result);
+      if (faceLandmarker === null) {
+        await initializeFaceLandmarker();
+      }
 
-      if (result.length > 0) {
-        const landmarksPositions = result[0].landmarks.positions;
+      const faceLandmarkerResult = faceLandmarker!.detect(video);
 
-        const leftEye = landmarksPositions.slice(36, 42);
-        const rightEye = landmarksPositions.slice(42, 48);
+      if (
+        !faceLandmarkerResult ||
+        faceLandmarkerResult.faceLandmarks.length === 0
+      )
+        return;
 
-        // Create image elements for left and right eyes
-        const _leftEyeImage = createEyeImage(video, leftEye);
-        const _rightEyeImage = createEyeImage(video, rightEye);
+      const faceLandmarks = faceLandmarkerResult.faceLandmarks[0];
 
-        if (_leftEyeImage && _rightEyeImage) {
-          const container = document.getElementById("eyesContainer");
-          if (!container) return;
-          container && (container.innerHTML = "");
+      const leftEyeNumbers = [
+        33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144,
+        163, 7,
+      ];
+      const rightEyeNumbers = [
+        362, 398, 384, 385, 386, 387, 388, 466, 263, 249, 390, 373, 374, 380,
+        381, 382,
+      ];
 
-          leftEyeImage = _leftEyeImage!;
-          rightEyeImage = _rightEyeImage!;
+      const leftEyeLandmarks = leftEyeNumbers.map(
+        (index) => faceLandmarks[index]
+      );
+      const rightEyeLandmarks = rightEyeNumbers.map(
+        (index) => faceLandmarks[index]
+      );
 
-          const leftEyeImageCanvas = leftEyeImageCanvasRef.current;
-          const leftCtx = leftEyeImageCanvas!.getContext("2d");
-          leftCtx!.drawImage(leftEyeImage, 0, 0, 200, 100);
+      // Create image elements for left and right eyes
+      const _leftEyeImage = createEyeImage(video, leftEyeLandmarks);
+      const _rightEyeImage = createEyeImage(video, rightEyeLandmarks);
 
-          const rightEyeImageCanvas = rightEyeImageCanvasRef.current;
-          const rightCtx = rightEyeImageCanvas!.getContext("2d");
-          rightCtx!.drawImage(rightEyeImage, 0, 0, 200, 100);
+      if (_leftEyeImage && _rightEyeImage) {
+        const container = document.getElementById("eyesContainer");
+        if (!container) return;
+        container && (container.innerHTML = "");
 
-          submitInference();
+        leftEyeImage = _leftEyeImage!;
+        rightEyeImage = _rightEyeImage!;
 
-          container.appendChild(leftEyeImage);
-          container.appendChild(rightEyeImage);
+        const leftEyeImageCanvas = leftEyeImageCanvasRef.current;
+        const leftCtx = leftEyeImageCanvas!.getContext("2d");
+        leftCtx!.drawImage(leftEyeImage, 0, 0, 200, 100);
 
-          document.body.appendChild(container);
-        } else {
-          console.log("Returned null");
-        }
+        const rightEyeImageCanvas = rightEyeImageCanvasRef.current;
+        const rightCtx = rightEyeImageCanvas!.getContext("2d");
+        rightCtx!.drawImage(rightEyeImage, 0, 0, 200, 100);
+
+        submitInference();
+
+        container.appendChild(leftEyeImage);
+        container.appendChild(rightEyeImage);
+
+        document.body.appendChild(container);
       }
     }
   };
 
   const createEyeImage = (
     video: HTMLVideoElement,
-    eyePositions: faceapi.Point[]
+    eyePositions: NormalizedLandmark[]
   ) => {
     // Create a canvas element
     const canvas = document.createElement("canvas");
@@ -88,20 +131,17 @@ const WebcamComponent: React.FC = () => {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const offsetX = [-5, 0, 0, 5, 0, 0];
-    const offsetY = [0, -5, -5, 0, 5, 5];
-
     if (eyePositions.length >= 2) {
       ctx.beginPath();
       ctx.moveTo(
-        eyePositions[0].x + offsetX[0],
-        eyePositions[0].y + offsetY[0]
+        eyePositions[0].x * canvas.width,
+        eyePositions[0].y * canvas.height
       );
 
       for (let i = 1; i < eyePositions.length; i++) {
         ctx.lineTo(
-          eyePositions[i].x + offsetX[i],
-          eyePositions[i].y + offsetY[i]
+          eyePositions[i].x * canvas.width,
+          eyePositions[i].y * canvas.height
         );
       }
 
@@ -116,22 +156,22 @@ const WebcamComponent: React.FC = () => {
       eyePositions.reduce(
         (min, pos) => Math.min(pos.x, min),
         eyePositions[0].x
-      ) - 5;
+      ) * canvas.width;
     const maxX =
       eyePositions.reduce(
         (max, pos) => Math.max(pos.x, max),
         eyePositions[0].x
-      ) + 5;
+      ) * canvas.width;
     const minY =
       eyePositions.reduce(
         (min, pos) => Math.min(pos.y, min),
         eyePositions[0].y
-      ) - 5;
+      ) * canvas.height;
     const maxY =
       eyePositions.reduce(
         (max, pos) => Math.max(pos.y, max),
         eyePositions[0].y
-      ) + 5;
+      ) * canvas.height;
 
     const imageData = ctx.getImageData(minX, minY, maxX - minX, maxY - minY);
 

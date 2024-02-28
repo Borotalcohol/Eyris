@@ -1,20 +1,27 @@
 import * as ort from "onnxruntime-web";
 import _ from "lodash";
 
-export async function runDirectionClassifierModel(
-  leftEyePreprocessedData: any,
-  rightEyePreprocessedData: any
-): Promise<[any, number]> {
-  // Create session and set options. See the docs here for more options:
-  //https://onnxruntime.ai/docs/api/js/interfaces/InferenceSession.SessionOptions.html#graphOptimizationLevel
-  const session = await ort.InferenceSession.create(
+let session: ort.InferenceSession | null;
+
+export async function initializeDirectionClassifierModel() {
+  // Create session and set options.
+  session = await ort.InferenceSession.create(
     "./_next/static/chunks/pages/eye_direction_classifier.onnx",
     { executionProviders: ["webgl"], graphOptimizationLevel: "all" }
   );
   console.log("Inference session created");
-  // Run inference and get results.
+}
+
+export async function runDirectionClassifierModel(
+  leftEyePreprocessedData: any,
+  rightEyePreprocessedData: any
+): Promise<[any, number]> {
+  if (!session) {
+    await initializeDirectionClassifierModel();
+  }
+
   var [results, inferenceTime] = await runInference(
-    session,
+    session!,
     leftEyePreprocessedData,
     rightEyePreprocessedData
   );

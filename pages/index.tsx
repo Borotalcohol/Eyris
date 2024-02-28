@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Script from "next/script";
 import Image from "next/image";
 import WebcamComponent from "../components/Webcam";
 
@@ -13,6 +14,10 @@ const Home: NextPage = () => {
           content="A webapp to control Spotify songs reproduction using your eye-gaze"
         />
         <link rel="icon" href="/favicon.ico" />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
+          crossOrigin="anonymous"
+        />
       </Head>
 
       <main>
