@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
-import * as faceapi from "face-api.js";
 import {
   FilesetResolver,
   FaceLandmarker,
@@ -18,9 +17,7 @@ const WebcamComponent: React.FC = () => {
 
   useEffect(() => {
     const loadModels = async () => {
-      // Load face-api.js models
-      await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
-      await faceapi.nets.faceLandmark68Net.loadFromUri("/models");
+      await initializeFaceLandmarker();
     };
 
     loadModels();
