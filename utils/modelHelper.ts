@@ -9,7 +9,7 @@ export async function initializeDirectionClassifierModel() {
     "./_next/static/chunks/pages/eye_direction_classifier.onnx",
     { executionProviders: ["webgl"], graphOptimizationLevel: "all" }
   );
-  console.log("Inference session created");
+  // console.log("Inference session created");
 }
 
 export async function runDirectionClassifierModel(
@@ -49,8 +49,8 @@ async function runInference(
   const prediction = argmax(outputSoftmax);
   const predictedLabel = labels[prediction];
 
-  console.log("Model Prediction Softmax: ", outputSoftmax);
-  console.log("Predicted direction: ", predictedLabel.toUpperCase());
+  // console.log("Model Prediction Softmax: ", outputSoftmax);
+  // console.log("Predicted direction: ", predictedLabel.toUpperCase());
 
   return [predictedLabel, inferenceTime];
 }

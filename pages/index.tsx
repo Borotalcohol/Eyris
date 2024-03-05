@@ -6,15 +6,41 @@ import PlaybackComponent from "../components/Playback";
 
 import { UserButton } from "@clerk/nextjs";
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import useSWR from "swr";
+import { useAuth } from "@clerk/nextjs";
+import WebcamComponent from "../components/Webcam";
 
 const Home: NextPage = () => {
+  const useClerkSWR = (url: string) => {
+    const { getToken } = useAuth();
+
+    const fetcher = async (...args: [RequestInfo]) => {
+      return fetch(...args, {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      }).then((res) => res.json());
+    };
+
+    return useSWR(url, fetcher);
+  };
+
+  const { data, error, isLoading } = useClerkSWR("/api/getSpotifyAccessToken");
+  const [accessToken, setAccessToken] = useState(null);
+
   useEffect(() => {
-    // Try to get the Access Token corresponding to the currently logged in user
-  }, []);
+    if (!isLoading && !error) {
+      console.log("Access token successfully retrieved: ", data.accessToken);
+      setAccessToken(data.accessToken);
+    } else if (error) {
+      console.log("Something went wrong during access token retrieve.");
+      console.error(error);
+      setAccessToken(null);
+    }
+  }, [isLoading]);
 
   return (
-    <div>
+    <div className="h-full">
       <Head>
         <title>SpotifEye Demo</title>
         <meta
@@ -28,9 +54,9 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full">
+      <main className="flex flex-col items-center w-full h-full">
         <header className="flex items-center justify-between w-full px-4 py-4">
-          <div className="invisible">
+          <div className="invisible w-8 h-8">
             <UserButton />
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -43,10 +69,14 @@ const Home: NextPage = () => {
             />
             <h1 className="m-0 text-3xl font-bold text-white">SpotifEye</h1>
           </div>
-          <UserButton />
+          <div className="w-8 h-8">
+            <UserButton />
+          </div>
         </header>
         <hr className="w-full my-4 border border-1 border-white/10" />
-        <PlaybackComponent />
+        {accessToken && <WebcamComponent />}
+        <div id="predictedDirection"></div>
+        {accessToken && <PlaybackComponent token={accessToken} />}
       </main>
     </div>
   );

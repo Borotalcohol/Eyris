@@ -23,19 +23,20 @@ const WebcamComponent: React.FC = () => {
     loadModels();
   }, []);
 
-  // useEffect(() => {
-  //   // Set up interval to run inference every 250ms
-  //   const inferenceInterval = setInterval(() => {
-  //     detectFaceLandmarks();
-  //   }, 250);
+  useEffect(() => {
+    // Set up interval to run inference every 250ms
+    const inferenceInterval = setInterval(() => {
+      detectFaceLandmarks();
+    }, 500);
 
-  //   // Clear the interval when the component is unmounted
-  //   return () => clearInterval(inferenceInterval);
-  // }, []);
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(inferenceInterval);
+  }, []);
 
   const initializeFaceLandmarker = async () => {
     const vision = await FilesetResolver.forVisionTasks(
-      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+      // "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.9/wasm"
     );
     faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
       baseOptions: {
@@ -48,7 +49,7 @@ const WebcamComponent: React.FC = () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video as HTMLVideoElement;
 
-      if (faceLandmarker === null) {
+      if (!faceLandmarker) {
         await initializeFaceLandmarker();
       }
 
@@ -78,32 +79,47 @@ const WebcamComponent: React.FC = () => {
         (index) => faceLandmarks[index]
       );
 
+      let imagesLoaded = 0;
+
+      const checkImagesLoaded = async () => {
+        imagesLoaded++;
+
+        if (imagesLoaded === 2) {
+          await submitInference();
+
+          const container = document.getElementById("eyesContainer");
+          if (!container) return;
+          container && (container.innerHTML = "");
+
+          container.appendChild(leftEyeImage);
+          container.appendChild(rightEyeImage);
+        }
+      };
+
       // Create image elements for left and right eyes
       const _leftEyeImage = createEyeImage(video, leftEyeLandmarks);
       const _rightEyeImage = createEyeImage(video, rightEyeLandmarks);
 
       if (_leftEyeImage && _rightEyeImage) {
-        const container = document.getElementById("eyesContainer");
-        if (!container) return;
-        container && (container.innerHTML = "");
+        _leftEyeImage.onload = async () => {
+          leftEyeImage = _leftEyeImage!;
 
-        leftEyeImage = _leftEyeImage!;
-        rightEyeImage = _rightEyeImage!;
+          const leftEyeImageCanvas = leftEyeImageCanvasRef.current;
+          const leftCtx = leftEyeImageCanvas!.getContext("2d");
+          leftCtx!.drawImage(leftEyeImage, 0, 0, 200, 100);
 
-        const leftEyeImageCanvas = leftEyeImageCanvasRef.current;
-        const leftCtx = leftEyeImageCanvas!.getContext("2d");
-        leftCtx!.drawImage(leftEyeImage, 0, 0, 200, 100);
+          await checkImagesLoaded();
+        };
 
-        const rightEyeImageCanvas = rightEyeImageCanvasRef.current;
-        const rightCtx = rightEyeImageCanvas!.getContext("2d");
-        rightCtx!.drawImage(rightEyeImage, 0, 0, 200, 100);
+        _rightEyeImage.onload = async () => {
+          rightEyeImage = _rightEyeImage!;
 
-        submitInference();
+          const rightEyeImageCanvas = rightEyeImageCanvasRef.current;
+          const rightCtx = rightEyeImageCanvas!.getContext("2d");
+          rightCtx!.drawImage(rightEyeImage, 0, 0, 200, 100);
 
-        container.appendChild(leftEyeImage);
-        container.appendChild(rightEyeImage);
-
-        document.body.appendChild(container);
+          await checkImagesLoaded();
+        };
       }
     }
   };
@@ -213,46 +229,43 @@ const WebcamComponent: React.FC = () => {
   };
 
   const submitInference = async () => {
-    var [inferenceResult, inferenceTime] = await inferenceDirectionClassifier(
-      leftEyeImage.src,
-      rightEyeImage.src
-    );
+    if (
+      leftEyeImage.width > 0 &&
+      leftEyeImage.height > 0 &&
+      rightEyeImage.width > 0 &&
+      rightEyeImage.height > 0
+    ) {
+      var [inferenceResult, inferenceTime] = await inferenceDirectionClassifier(
+        leftEyeImage.src,
+        rightEyeImage.src
+      );
 
-    const container = document.getElementById("predictionLabel");
-    if (!container) return;
-    container && (container.innerHTML = "");
+      const container = document.getElementById("predictedDirection");
+      if (!container) return;
+      container && (container.innerHTML = "");
 
-    const paragraph = document.createElement("p");
+      const paragraph = document.createElement("p");
 
-    paragraph.textContent = inferenceResult;
-    paragraph.style.color = "white";
+      paragraph.textContent = inferenceResult;
+      paragraph.style.color = "white";
 
-    container?.appendChild(paragraph);
-  };
-
-  const handleCapture = () => {
-    detectFaceLandmarks();
+      container!.appendChild(paragraph);
+    } else {
+      console.log("Cannot get prediction");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex items-center justify-center gap-3">
       <Webcam
         ref={webcamRef}
         audio={false}
-        width={640}
-        height={480}
+        width={240}
+        height={120}
         screenshotFormat="image/jpeg"
       />
-      <button
-        className="px-5 py-2 mt-5 text-black bg-white rounded-md"
-        onClick={handleCapture}
-      >
-        Capture
-      </button>
-      <div className="flex items-center justify-center gap-3">
-        <canvas ref={leftEyeImageCanvasRef} width={200} height={100} />
-        <canvas ref={rightEyeImageCanvasRef} width={200} height={100} />
-      </div>
+      <canvas ref={leftEyeImageCanvasRef} width={200} height={100} />
+      <canvas ref={rightEyeImageCanvasRef} width={200} height={100} />
     </div>
   );
 };
