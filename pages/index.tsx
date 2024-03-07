@@ -30,10 +30,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!isLoading && !error) {
-      console.log("Access token successfully retrieved: ", data.accessToken);
       setAccessToken(data.accessToken);
     } else if (error) {
-      console.log("Something went wrong during access token retrieve.");
       console.error(error);
       setAccessToken(null);
     }
