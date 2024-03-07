@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, ReactNode, useState } from "react";
 import Webcam from "react-webcam";
 import {
   FilesetResolver,
@@ -7,13 +7,21 @@ import {
 } from "@mediapipe/tasks-vision";
 import { inferenceDirectionClassifier } from "../utils/predict";
 
-const WebcamComponent: React.FC = () => {
+type Props = {
+  children: ReactNode;
+  onPrediction: Function;
+};
+
+const WebcamComponent = ({ children, onPrediction }: Props) => {
   let faceLandmarker: FaceLandmarker | null = null;
   const webcamRef = useRef<Webcam>(null);
   const leftEyeImageCanvasRef = useRef<HTMLCanvasElement>(null);
   const rightEyeImageCanvasRef = useRef<HTMLCanvasElement>(null);
   var leftEyeImage: HTMLImageElement;
   var rightEyeImage: HTMLImageElement;
+
+  const [inferenceActive, setInferenceActive] = useState(false);
+  let inferenceInterval: any | null = null;
 
   useEffect(() => {
     const loadModels = async () => {
@@ -24,18 +32,21 @@ const WebcamComponent: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Set up interval to run inference every 250ms
     const inferenceInterval = setInterval(() => {
       detectFaceLandmarks();
     }, 500);
 
-    // Clear the interval when the component is unmounted
-    return () => clearInterval(inferenceInterval);
-  }, []);
+    const cleanup = () => {
+      clearInterval(inferenceInterval);
+    };
+
+    if (!inferenceActive) cleanup();
+
+    return cleanup;
+  }, [inferenceActive]);
 
   const initializeFaceLandmarker = async () => {
     const vision = await FilesetResolver.forVisionTasks(
-      // "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
       "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.9/wasm"
     );
     faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
@@ -250,22 +261,36 @@ const WebcamComponent: React.FC = () => {
       paragraph.style.color = "white";
 
       container!.appendChild(paragraph);
+      onPrediction(inferenceResult);
     } else {
       console.log("Cannot get prediction");
     }
   };
 
   return (
-    <div className="flex items-center justify-center gap-3">
-      <Webcam
-        ref={webcamRef}
-        audio={false}
-        width={240}
-        height={120}
-        screenshotFormat="image/jpeg"
-      />
-      <canvas ref={leftEyeImageCanvasRef} width={200} height={100} />
-      <canvas ref={rightEyeImageCanvasRef} width={200} height={100} />
+    <div className="flex flex-col justify-center gap-5 max-w-[1200px] w-full">
+      <div className="flex items-center justify-center gap-3">
+        <Webcam
+          ref={webcamRef}
+          audio={false}
+          width={240}
+          height={120}
+          screenshotFormat="image/jpeg"
+        />
+        <canvas ref={leftEyeImageCanvasRef} width={200} height={100} />
+        <canvas ref={rightEyeImageCanvasRef} width={200} height={100} />
+        <button
+          className="px-3 py-2 text-black bg-white rounded-md"
+          onClick={() => setInferenceActive((prevState) => !prevState)}
+        >
+          {inferenceActive ? "Stop Inferencing" : "Start Inferencing"}
+        </button>
+      </div>
+      <div
+        id="predictedDirection"
+        className="flex items-center justify-center text-center"
+      ></div>
+      {children}
     </div>
   );
 };

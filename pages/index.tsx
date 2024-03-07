@@ -2,6 +2,7 @@ import Head from "next/head";
 import Script from "next/script";
 import Image from "next/image";
 
+import PredictionWindow from "../utils/predictionWindow";
 import PlaybackComponent from "../components/Playback";
 
 import { UserButton } from "@clerk/nextjs";
@@ -27,6 +28,9 @@ const Home: NextPage = () => {
 
   const { data, error, isLoading } = useClerkSWR("/api/getSpotifyAccessToken");
   const [accessToken, setAccessToken] = useState(null);
+  const [direction, setDirection] = useState<string | null>(null);
+
+  const predictionWindow = new PredictionWindow(10);
 
   useEffect(() => {
     if (!isLoading && !error) {
@@ -36,6 +40,20 @@ const Home: NextPage = () => {
       setAccessToken(null);
     }
   }, [isLoading]);
+
+  const handleNewPrediction = (predictedDirection: string) => {
+    predictionWindow.append(predictedDirection);
+
+    if (predictionWindow.predictions.length === predictionWindow.size) {
+      const mostFrequentDir: string | null =
+        predictionWindow.getMostFrequentDirection();
+
+      if (mostFrequentDir && !["down", "center"].includes(mostFrequentDir)) {
+        setDirection(mostFrequentDir);
+        predictionWindow.clear();
+      }
+    }
+  };
 
   return (
     <div className="h-full">
@@ -72,9 +90,15 @@ const Home: NextPage = () => {
           </div>
         </header>
         <hr className="w-full my-4 border border-1 border-white/10" />
-        {accessToken && <WebcamComponent />}
-        <div id="predictedDirection"></div>
-        {accessToken && <PlaybackComponent token={accessToken} />}
+        {accessToken && (
+          <WebcamComponent onPrediction={handleNewPrediction}>
+            <PlaybackComponent
+              token={accessToken}
+              predictedDirection={direction}
+              resetPredictedDirection={() => setDirection(null)}
+            />
+          </WebcamComponent>
+        )}
       </main>
     </div>
   );

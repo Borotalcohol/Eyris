@@ -9,20 +9,26 @@ import {
 
 type Props = {
   token: string;
+  predictedDirection: string | null;
+  resetPredictedDirection: Function;
 };
 
-type ReproductionState = {
+type ReproductionProgress = {
   progress_ms: number;
   duration_ms: number;
 };
 
-const PlaybackComponent: VFC<Props> = ({ token }) => {
-  const [is_paused, setPaused] = useState<boolean>(false);
-  const [is_active, setActive] = useState<boolean>(false);
+const PlaybackComponent: VFC<Props> = ({
+  token,
+  predictedDirection,
+  resetPredictedDirection,
+}) => {
+  const [isPaused, setPaused] = useState<boolean>(false);
+  const [isActive, setActive] = useState<boolean>(false);
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
-  const [current_track, setTrack] = useState<Spotify.Track | null>(null);
-  const [reproduction_state, setReproductionState] =
-    useState<ReproductionState | null>(null);
+  const [currentTrack, setTrack] = useState<Spotify.Track | null>(null);
+  const [reproductionProgress, setReproductionProgress] =
+    useState<ReproductionProgress | null>(null);
 
   useEffect(() => {
     if (typeof window.onSpotifyWebPlaybackSDKReady !== "function") {
@@ -70,7 +76,7 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
         }
 
         setTrack(state.track_window.current_track);
-        setReproductionState({
+        setReproductionProgress({
           progress_ms: state.position,
           duration_ms: state.duration,
         });
@@ -98,13 +104,13 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
   useEffect(() => {
     let interval: any = null;
 
-    if (reproduction_state && !is_paused && !interval) {
+    if (reproductionProgress && !isPaused && !interval) {
       interval = setInterval(() => {
         if (
-          reproduction_state.progress_ms <
-          reproduction_state.duration_ms - 1000
+          reproductionProgress.progress_ms <
+          reproductionProgress.duration_ms - 1000
         ) {
-          setReproductionState(function (prevState): ReproductionState {
+          setReproductionProgress(function (prevState): ReproductionProgress {
             return {
               ...prevState!,
               progress_ms: prevState!.progress_ms + 1000,
@@ -119,7 +125,29 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [current_track, is_paused]);
+  }, [currentTrack, isPaused]);
+
+  useEffect(() => {
+    if (!predictedDirection || !player || !isActive) return;
+
+    console.log("About to execute action: ", predictedDirection);
+
+    switch (predictedDirection) {
+      case "left":
+        handleSkipToPreviousSong();
+        break;
+
+      case "right":
+        handleSkipToNextSong();
+        break;
+
+      case "up":
+        handlePauseResumePlayback();
+        break;
+    }
+
+    resetPredictedDirection();
+  }, [predictedDirection]);
 
   const getMinuteString = (time_ms: number) => {
     const s = time_ms / 1000;
@@ -133,6 +161,19 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
     return `${mm}:${ss}`;
   };
 
+  const handleSkipToPreviousSong = () => {
+    player!.seek(0);
+    player!.previousTrack();
+  };
+
+  const handleSkipToNextSong = () => {
+    player!.nextTrack();
+  };
+
+  const handlePauseResumePlayback = () => {
+    player!.togglePlay();
+  };
+
   if (!player) {
     return (
       <>
@@ -143,7 +184,7 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
         </div>
       </>
     );
-  } else if (!is_active) {
+  } else if (!isActive) {
     return (
       <>
         <div className="w-full">
@@ -158,12 +199,12 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
   } else {
     return (
       <>
-        <div className="flex items-center justify-center w-full max-w-[1200px] gap-3 mt-6">
+        <div className="flex items-center justify-center w-full gap-3 mt-6">
           <div className="h-full">
             <button
               className="h-full p-4 text-white bg-[#2D2D2D] w-[120px] rounded-lg flex items-center justify-center"
               onClick={() => {
-                player.previousTrack();
+                handleSkipToPreviousSong();
               }}
             >
               <BackwardIcon className="w-12 h-12 text-white" />
@@ -173,38 +214,38 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
             <button
               className="h-[120px] p-4 text-white bg-[#2D2D2D] w-full rounded-lg flex items-center justify-center"
               onClick={() => {
-                player.togglePlay();
+                handlePauseResumePlayback();
               }}
             >
-              {is_paused ? (
+              {isPaused ? (
                 <PlayIcon className="w-12 h-12 text-white" />
               ) : (
                 <PauseIcon className="w-12 h-12 text-white" />
               )}
             </button>
             <div className="flex items-center gap-8 mt-4 text-white">
-              {current_track && current_track.album.images[0].url ? (
+              {currentTrack && currentTrack.album.images[0].url ? (
                 <img
-                  src={current_track.album.images[0].url}
+                  src={currentTrack.album.images[0].url}
                   className="rounded-lg"
                   alt=""
                 />
               ) : null}
 
               <div className="flex flex-col w-full gap-3">
-                <h2 className="text-5xl font-bold">{current_track?.name}</h2>
+                <h2 className="text-5xl font-bold">{currentTrack?.name}</h2>
                 <p className="mt-3 text-2xl font-medium">
-                  {current_track?.artists.map((_) => _.name).join(", ")}
+                  {currentTrack?.artists.map((_) => _.name).join(", ")}
                 </p>
-                {reproduction_state && (
+                {reproductionProgress && (
                   <div className="flex items-center justify-start w-full gap-4 pr-2 mt-4">
-                    <p>{getMinuteString(reproduction_state.progress_ms)}</p>
+                    <p>{getMinuteString(reproductionProgress.progress_ms)}</p>
                     <progress
                       className="w-full h-3 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-[#4D4D4D] [&::-webkit-progress-value]:bg-white [&::-moz-progress-bar]:bg-white"
-                      value={reproduction_state.progress_ms}
-                      max={reproduction_state.duration_ms}
+                      value={reproductionProgress.progress_ms}
+                      max={reproductionProgress.duration_ms}
                     />
-                    <p>{getMinuteString(reproduction_state.duration_ms)}</p>
+                    <p>{getMinuteString(reproductionProgress.duration_ms)}</p>
                   </div>
                 )}
               </div>
@@ -214,7 +255,7 @@ const PlaybackComponent: VFC<Props> = ({ token }) => {
             <button
               className="h-full p-4 text-white bg-[#2D2D2D] w-[120px] rounded-lg flex items-center justify-center"
               onClick={() => {
-                player.nextTrack();
+                handleSkipToNextSong();
               }}
             >
               <ForwardIcon className="w-12 h-12 text-white" />
