@@ -161,8 +161,8 @@ const PlaybackComponent: VFC<Props> = ({
     return `${mm}:${ss}`;
   };
 
-  const handleSkipToPreviousSong = () => {
-    player!.seek(0);
+  const handleSkipToPreviousSong = async () => {
+    await player!.seek(0);
     player!.previousTrack();
   };
 
