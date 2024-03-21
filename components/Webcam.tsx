@@ -3,7 +3,7 @@ import React, { useRef, useEffect, ReactNode, useState } from "react";
 import { FaceLandmarker } from "@mediapipe/tasks-vision";
 
 import { getEyesDirectionPrediction } from "../utils/modelHelper";
-import { extractEyesImages } from "../utils/eyeImageHelper";
+import { extractEyesImages, isEyeClosed } from "../utils/eyeImageHelper";
 import {
   initializeFaceLandmarker,
   detectFaceLandmarks,
@@ -26,6 +26,12 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
 
   const [inferenceActive, setInferenceActive] = useState(false);
 
+  const activatedSound = new Audio("/sounds/activated.mp3");
+  const deactivatedSound = new Audio("/sounds/deactivated.mp3");
+
+  const consequentClosedEyesThreshold = 8;
+  let consequentClosedEyesPredictions = 0;
+
   useEffect(() => {
     const loadModels = async () => {
       const _faceLandmarker = await initializeFaceLandmarker();
@@ -39,10 +45,32 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
     if (!faceLandmarker) return;
 
     const inferenceInterval = setInterval(() => {
-      if (webcamRef.current && faceLandmarker && inferenceActive) {
+      if (webcamRef.current && faceLandmarker) {
+        // Fetch face landmarks always
         const video = webcamRef.current.video as HTMLVideoElement;
         const faceLandmarks = detectFaceLandmarks(video, faceLandmarker);
+
         if (faceLandmarks) {
+          // Use face landmarks to detect blinking to activate or disable inference
+          const leftEyeClosed = isEyeClosed(video, faceLandmarks, [159, 145]);
+          const rightEyeClosed = isEyeClosed(video, faceLandmarks, [386, 374]);
+
+          if (leftEyeClosed && rightEyeClosed) {
+            consequentClosedEyesPredictions++;
+
+            if (
+              consequentClosedEyesPredictions === consequentClosedEyesThreshold
+            ) {
+              consequentClosedEyesPredictions = 0;
+              setInferenceActive((prevState) => {
+                const newState = !prevState;
+                if (newState) activatedSound.play();
+                else deactivatedSound.play();
+                return newState;
+              });
+            }
+          } else consequentClosedEyesPredictions = 0;
+
           extractEyesImages(
             video,
             faceLandmarks,
@@ -50,7 +78,13 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
             rightEyeImageCanvasRef
           )
             .then(([leftEyeImage, rightEyeImage]) => {
-              return getEyesDirectionPrediction(leftEyeImage!, rightEyeImage!);
+              // Predict eyes position only when inference is in active state
+              if (inferenceActive) {
+                return getEyesDirectionPrediction(
+                  leftEyeImage!,
+                  rightEyeImage!
+                );
+              }
             })
             .then((prediction) => {
               if (!prediction) return;
@@ -69,20 +103,22 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
       clearInterval(inferenceInterval);
     };
 
-    if (!inferenceActive || !faceLandmarker) cleanup();
+    if (!faceLandmarker) cleanup();
 
     return cleanup;
   }, [inferenceActive, faceLandmarker]);
-
-  // getEyeOpeningMeasure(video, faceLandmarks, [159, 145]);
-  // getEyeOpeningMeasure(video, faceLandmarks, [386, 334]);
 
   const displayInferenceResult = (prediction: string) => {
     predictionParagraphRef.current!.textContent = prediction;
   };
 
   return (
-    <div className="flex flex-col justify-center gap-5 max-w-[1200px] w-full">
+    <div
+      className={
+        "flex flex-col justify-center gap-5 max-w-[1200px] p-3 w-full " +
+        (inferenceActive ? "border-8 border-green-500" : "")
+      }
+    >
       <div className="flex items-center justify-center gap-3">
         <Webcam
           ref={webcamRef}

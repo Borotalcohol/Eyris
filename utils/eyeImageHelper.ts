@@ -7,6 +7,7 @@ const rightEyeNumbers = [
   362, 398, 384, 385, 386, 387, 388, 466, 263, 249, 390, 373, 374, 380, 381,
   382,
 ];
+const closedEyeThreshold = 0.8;
 
 export const loadEyeImages = (
   video: HTMLVideoElement,
@@ -70,11 +71,11 @@ export const extractEyesImages = (
   });
 };
 
-export const getEyeOpeningMeasure = (
+export const isEyeClosed = (
   video: HTMLVideoElement,
   landmarks: NormalizedLandmark[],
   positions: number[]
-) => {
+): boolean => {
   const filteredLandmarks = positions.map(
     (index) => landmarks[index].y * video.height
   );
@@ -82,7 +83,7 @@ export const getEyeOpeningMeasure = (
   const upperPosition = filteredLandmarks[0];
   const lowerPosition = filteredLandmarks[1];
 
-  console.log("Distance: ", Math.abs(upperPosition - lowerPosition));
+  return Math.abs(upperPosition - lowerPosition) < closedEyeThreshold;
 };
 
 export const createEyeImage = (
