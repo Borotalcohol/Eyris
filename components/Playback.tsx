@@ -162,16 +162,15 @@ const PlaybackComponent: VFC<Props> = ({
   };
 
   const handleSkipToPreviousSong = async () => {
-    await player!.seek(0);
-    player!.previousTrack();
+    await player!.previousTrack();
   };
 
-  const handleSkipToNextSong = () => {
-    player!.nextTrack();
+  const handleSkipToNextSong = async () => {
+    await player!.nextTrack();
   };
 
-  const handlePauseResumePlayback = () => {
-    player!.togglePlay();
+  const handlePauseResumePlayback = async () => {
+    await player!.togglePlay();
   };
 
   if (!player) {

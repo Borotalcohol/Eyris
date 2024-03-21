@@ -1,5 +1,6 @@
 import * as ort from "onnxruntime-web";
 import _ from "lodash";
+import { inferenceDirectionClassifier } from "./predict";
 
 let session: ort.InferenceSession | null;
 
@@ -49,9 +50,6 @@ async function runInference(
   const prediction = argmax(outputSoftmax);
   const predictedLabel = labels[prediction];
 
-  // console.log("Model Prediction Softmax: ", outputSoftmax);
-  // console.log("Predicted direction: ", predictedLabel.toUpperCase());
-
   return [predictedLabel, inferenceTime];
 }
 
@@ -77,3 +75,23 @@ function argmax(resultArray: number[]): number {
 
   return highestValueIndex;
 }
+
+export const getEyesDirectionPrediction = async (
+  leftEyeImage: HTMLImageElement,
+  rightEyeImage: HTMLImageElement
+): Promise<string | null> => {
+  if (
+    leftEyeImage.width === 0 ||
+    leftEyeImage.height === 0 ||
+    rightEyeImage.width === 0 ||
+    rightEyeImage.height === 0
+  )
+    return null;
+
+  const [inferenceResult, _] = await inferenceDirectionClassifier(
+    leftEyeImage.src,
+    rightEyeImage.src
+  );
+
+  return inferenceResult;
+};
