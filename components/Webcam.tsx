@@ -8,6 +8,8 @@ import {
   initializeFaceLandmarker,
   detectFaceLandmarks,
 } from "../utils/mediapipeHelper";
+import Draggable from "react-draggable";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 type Props = {
   children: ReactNode;
@@ -24,7 +26,17 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
     null
   );
 
+  const [landmarksDetectionActive, setLandmarksDetectionActive] =
+    useState(true);
   const [inferenceActive, setInferenceActive] = useState(false);
+
+  const webcamSizes = [140, 180, 240];
+
+  const small = useMediaQuery("(max-width:768px)");
+  const medium = useMediaQuery("(min-width: 769px) and (max-width: 1024px)");
+  const large = useMediaQuery("(min-width: 1025px)");
+  const breakpoints = [small, medium, large];
+  const webcamWidth = webcamSizes[breakpoints.findIndex((_) => _)];
 
   const activatedSound = new Audio("/sounds/activated.mp3");
   const deactivatedSound = new Audio("/sounds/deactivated.mp3");
@@ -103,45 +115,80 @@ const WebcamComponent = ({ children, onPrediction }: Props) => {
       clearInterval(inferenceInterval);
     };
 
-    if (!faceLandmarker) cleanup();
+    if (!faceLandmarker || !landmarksDetectionActive) cleanup();
 
     return cleanup;
-  }, [inferenceActive, faceLandmarker]);
+  }, [inferenceActive, landmarksDetectionActive, faceLandmarker]);
 
   const displayInferenceResult = (prediction: string) => {
     predictionParagraphRef.current!.textContent = prediction;
   };
 
+  const onStartDragHandler = () => {
+    // Stop the landmarker detection to improve fluid drag movement
+    setLandmarksDetectionActive(false);
+  };
+
+  const onStopDragHandler = () => {
+    // Resume the landmarker detection
+    setLandmarksDetectionActive(true);
+  };
+
   return (
-    <div
-      className={
-        "flex flex-col justify-center gap-5 max-w-[1200px] p-3 w-full " +
-        (inferenceActive ? "border-8 border-green-500" : "")
-      }
-    >
-      <div className="flex items-center justify-center gap-3">
-        <Webcam
-          ref={webcamRef}
-          audio={false}
-          width={240}
-          height={120}
-          screenshotFormat="image/jpeg"
-        />
-        <canvas ref={leftEyeImageCanvasRef} width={200} height={100} />
-        <canvas ref={rightEyeImageCanvasRef} width={200} height={100} />
-        <button
-          className="px-3 py-2 text-black bg-white rounded-md"
-          onClick={() => setInferenceActive((prevState) => !prevState)}
-        >
-          {inferenceActive ? "Stop Inferencing" : "Start Inferencing"}
-        </button>
+    <>
+      <div className="flex flex-col justify-center gap-5 max-w-[1200px] p-3 w-full">
+        {children}
       </div>
+      <Draggable onStart={onStartDragHandler} onStop={onStopDragHandler}>
+        <div className="fixed bottom-0 right-0 p-4 m-4 bg-[#2D2D2D] border border-white/30 text-white rounded-lg shadow-md cursor-grab">
+          <div className="flex items-center justify-center gap-2 mb-3 text-sm text-center text-white md:text-md">
+            {inferenceActive ? (
+              <>
+                Last prediction:{" "}
+                <div
+                  ref={predictionParagraphRef}
+                  className="flex items-center justify-center font-bold text-center text-white uppercase"
+                ></div>
+              </>
+            ) : (
+              <p
+                className={`w-auto text-center text-white break-words text-wrap max-w-[240px]`}
+              >
+                Inference Not Active
+              </p>
+            )}
+          </div>
+          <div className="flex items-center justify-center">
+            <canvas
+              className="rounded-tl-sm"
+              ref={leftEyeImageCanvasRef}
+              width={webcamWidth / 2}
+              height={webcamWidth / 4}
+            />
+            <canvas
+              className="rounded-tr-sm"
+              ref={rightEyeImageCanvasRef}
+              width={webcamWidth / 2}
+              height={webcamWidth / 4}
+            />
+          </div>
+          <Webcam
+            ref={webcamRef}
+            audio={false}
+            width={webcamWidth}
+            height={120}
+            screenshotFormat="image/jpeg"
+            className="rounded-b-sm"
+          />
+        </div>
+      </Draggable>
       <div
-        ref={predictionParagraphRef}
-        className="flex items-center justify-center text-center text-white"
+        className={
+          "fixed top-0 bottom-0 left-0 right-0 w-full h-full pointer-events-none " +
+          (inferenceActive ? "border-[5px] border-green-500" : "")
+        }
       ></div>
-      {children}
-    </div>
+    </>
   );
 };
 

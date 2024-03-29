@@ -178,7 +178,7 @@ const PlaybackComponent: VFC<Props> = ({
       <>
         <div className="w-full">
           <div className="flex items-center justify-center text-center text-white">
-            <p>Spotify Player is null</p>
+            <p>Waiting for Spotify Player initialization...</p>
           </div>
         </div>
       </>
@@ -201,50 +201,56 @@ const PlaybackComponent: VFC<Props> = ({
         <div className="flex items-center justify-center w-full gap-3 mt-6">
           <div className="h-full">
             <button
-              className="h-full p-4 text-white bg-[#2D2D2D] w-[120px] rounded-lg flex items-center justify-center"
+              className="h-full p-4 text-white bg-[#2D2D2D] border border-white/30 w-[60px] md:w-[80px] lg:w-[100px] xl:w-[120px] rounded-lg flex items-center justify-center"
               onClick={() => {
                 handleSkipToPreviousSong();
               }}
             >
-              <BackwardIcon className="w-12 h-12 text-white" />
+              <BackwardIcon className="w-8 h-8 text-white lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
             </button>
           </div>
           <div className="w-full max-w-[800px]">
             <button
-              className="h-[120px] p-4 text-white bg-[#2D2D2D] w-full rounded-lg flex items-center justify-center"
+              className="h-[60px] md:h-[80px] lg:h-[100px] xl:h-[120px] p-4 text-white bg-[#2D2D2D] border border-white/30 w-full rounded-lg flex items-center justify-center"
               onClick={() => {
                 handlePauseResumePlayback();
               }}
             >
               {isPaused ? (
-                <PlayIcon className="w-12 h-12 text-white" />
+                <PlayIcon className="w-8 h-8 text-white lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
               ) : (
-                <PauseIcon className="w-12 h-12 text-white" />
+                <PauseIcon className="w-8 h-8 text-white lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
               )}
             </button>
-            <div className="flex items-center gap-8 mt-4 text-white">
+            <div className="flex items-start gap-3 mt-4 text-white md:gap-5 lg:gap-7 xl:gap-8">
               {currentTrack && currentTrack.album.images[0].url ? (
                 <img
                   src={currentTrack.album.images[0].url}
-                  className="rounded-lg"
+                  className="border rounded-lg border-white/30 w-[140px] md:w-[180px] lg:w-[240px] xl:w-[320px]"
                   alt=""
                 />
               ) : null}
 
-              <div className="flex flex-col w-full gap-3">
-                <h2 className="text-5xl font-bold">{currentTrack?.name}</h2>
-                <p className="mt-3 text-2xl font-medium">
+              <div className="flex flex-col w-full gap-3 mt-5">
+                <h2 className="m-0 text-2xl font-bold md:text-3xl lg:text-4xl xl:text-5xl">
+                  {currentTrack?.name}
+                </h2>
+                <p className="mt-0 font-medium md:mt-1 xl:mt-3 text-md md:text-lg lg:text-xl xl:text-2xl">
                   {currentTrack?.artists.map((_) => _.name).join(", ")}
                 </p>
                 {reproductionProgress && (
                   <div className="flex items-center justify-start w-full gap-4 pr-2 mt-4">
-                    <p>{getMinuteString(reproductionProgress.progress_ms)}</p>
+                    <p className="text-sm text-white md:text-md lg:text-lg">
+                      {getMinuteString(reproductionProgress.progress_ms)}
+                    </p>
                     <progress
                       className="w-full h-3 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-[#4D4D4D] [&::-webkit-progress-value]:bg-white [&::-moz-progress-bar]:bg-white"
                       value={reproductionProgress.progress_ms}
                       max={reproductionProgress.duration_ms}
                     />
-                    <p>{getMinuteString(reproductionProgress.duration_ms)}</p>
+                    <p className="text-sm text-white md:text-md lg:text-lg">
+                      {getMinuteString(reproductionProgress.duration_ms)}
+                    </p>
                   </div>
                 )}
               </div>
@@ -252,12 +258,12 @@ const PlaybackComponent: VFC<Props> = ({
           </div>
           <div className="h-full">
             <button
-              className="h-full p-4 text-white bg-[#2D2D2D] w-[120px] rounded-lg flex items-center justify-center"
+              className="h-full p-4 text-white bg-[#2D2D2D] border border-white/30 w-[60px] md:w-[80px] lg:w-[100px] xl:w-[120px] rounded-lg flex items-center justify-center"
               onClick={() => {
                 handleSkipToNextSong();
               }}
             >
-              <ForwardIcon className="w-12 h-12 text-white" />
+              <ForwardIcon className="w-8 h-8 text-white lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
             </button>
           </div>
         </div>

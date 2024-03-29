@@ -36,7 +36,13 @@ export const handleImageLoaded = async (
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    ctx.drawImage(image, 0, 0, 200, 100);
+    ctx.drawImage(
+      image,
+      0,
+      0,
+      canvasRef.current!.width,
+      canvasRef.current!.height
+    );
     await checkImagesLoaded();
   };
 };
@@ -47,7 +53,7 @@ export const extractEyesImages = (
   leftEyeImageCanvasRef: React.MutableRefObject<HTMLCanvasElement | null>,
   rightEyeImageCanvasRef: React.MutableRefObject<HTMLCanvasElement | null>
 ): Promise<[HTMLImageElement, HTMLImageElement]> => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve, _) => {
     const { leftEyeImage, rightEyeImage } = loadEyeImages(video, faceLandmarks);
 
     let imagesLoaded = 0;

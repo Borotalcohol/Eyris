@@ -89,7 +89,7 @@ const Home: NextPage = () => {
             <UserButton />
           </div>
         </header>
-        <hr className="w-full my-4 border border-1 border-white/10" />
+        <hr className="w-full h-px my-4 border-none bg-white/30" />
         {accessToken && (
           <WebcamComponent onPrediction={handleNewPrediction}>
             <PlaybackComponent
