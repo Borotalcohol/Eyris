@@ -4,14 +4,14 @@ import Image from "next/image";
 
 import PredictionWindow from "../utils/predictionWindow";
 import PlaybackComponent from "../components/Playback";
+import WebcamComponent from "../components/Webcam";
 
-import { UserButton } from "@clerk/nextjs";
-import type { NextPage } from "next";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 import useSWR from "swr";
-import { useAuth } from "@clerk/nextjs";
-import WebcamComponent from "../components/Webcam";
+
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   const useClerkSWR = (url: string) => {
@@ -64,10 +64,6 @@ const Home: NextPage = () => {
           content="A webapp to control Spotify songs reproduction using your eye-gaze"
         />
         <link rel="icon" href="/favicon.ico" />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
-          crossOrigin="anonymous"
-        />
       </Head>
 
       <main className="flex flex-col items-center w-full h-full">
