@@ -10,10 +10,9 @@ module.exports = {
     config.resolve.extensions.push(".ts", ".tsx");
     config.resolve.fallback = { fs: false };
 
-    // Add alias mappings for resolving @ alias
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": path.resolve(__dirname, "./"), // Assuming styles directory is in the root
+      "@": path.resolve(__dirname, "./"),
     };
 
     config.plugins.push(

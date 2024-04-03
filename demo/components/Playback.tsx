@@ -1,6 +1,5 @@
 import React, { VFC, useState, useEffect } from "react";
 import {
-  ArrowLeftIcon,
   BackwardIcon,
   ForwardIcon,
   PauseIcon,
