@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import SecondaryButton from "@/components/Button/Secondary";
 import TertiaryButton from "@/components/Button/Tertiary";
+
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
-import Image from "next/image";
+
 import { useState } from "react";
 
 function HowItsMade() {
