@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const SecondaryButton: React.FC<ButtonProps> = ({ children, ...rest }) => {
   return (
     <button
-      className="px-6 py-2 rounded-full bg-white text-darkest-gray shadow-[0_0_30px_5px_rgba(255,255,255,0.2)] font-avenir font-[500] text-lg"
+      className="px-5 py-2 rounded-full bg-white flex items-center justify-center gap-1 text-darkest-gray shadow-[0_0_30px_5px_rgba(255,255,255,0.2)] font-avenir font-[500] text-lg"
       {...rest}
     >
       {children}

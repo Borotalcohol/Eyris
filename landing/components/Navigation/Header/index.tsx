@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function Header() {
   return (
-    <div className="fixed grid w-full grid-cols-12 top">
+    <div className="fixed grid z-[2] w-full grid-cols-12 top">
       <header className="grid col-span-10 col-start-2 pt-5 pb-3 grid-cols-subgrid">
         <div className="flex items-center col-span-7 gap-12">
           <div className="flex items-center gap-3">

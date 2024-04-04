@@ -7,11 +7,11 @@ import HowItsMade from "@/sections/HowItsMade";
 
 function Home() {
   return (
-    <main className="grid min-h-screen col-span-12 p-24 grid-cols-subgrid">
+    <main className="grid min-h-screen col-span-12 grid-cols-subgrid">
       <Hero />
-      {/* 
       <Description />
       <HowItsMade />
+      {/*
       <FAQ />
       <Authors />
       <GetInTouch /> */}

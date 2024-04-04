@@ -18,9 +18,8 @@ const config: Config = {
         gotham: ["var(--font-gotham)"],
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-mask":
+          "linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0))",
       },
       colors: {
         accent: "#1ED760",
