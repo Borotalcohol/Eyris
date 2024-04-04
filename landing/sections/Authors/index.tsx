@@ -18,13 +18,16 @@ function Authors() {
       <div className="flex items-center w-full max-w-4xl mt-16 justify-evenly">
         <div className="relative flex flex-col w-full max-w-[240px]">
           <div className="absolute top-0 left-0 flex justify-end w-full h-24 gap-3 px-4 pt-4 text-white align-bottom rounded-t-lg bg-gradient-to-b from-black/90 to-black/0">
-            <Link href="">
+            <Link href="mailto:loschiavochristian@gmail.com">
               <MdAlternateEmail className="w-6 h-6" />
             </Link>
-            <Link href="">
+            <Link
+              href="https://www.linkedin.com/in/christian-loschiavo-56059a1b6"
+              target="_blank"
+            >
               <FaLinkedin className="w-6 h-6" />
             </Link>
-            <Link href="">
+            <Link href="https://github.com/Borotalcohol" target="_blank">
               <FaGithub className="w-6 h-6" />
             </Link>
           </div>
@@ -43,13 +46,16 @@ function Authors() {
         </div>
         <div className="relative flex flex-col w-full max-w-[240px]">
           <div className="absolute top-0 left-0 flex justify-end w-full h-24 gap-3 px-4 pt-4 text-white align-bottom rounded-t-lg bg-gradient-to-b from-black/90 to-black/0">
-            <Link href="">
+            <Link href="mailto:a.jarach1@campus.unimib.it">
               <MdAlternateEmail className="w-6 h-6" />
             </Link>
-            <Link href="">
+            <Link
+              href="https://www.linkedin.com/in/alessandro-ruben-jarach-502620224/"
+              target="_blank"
+            >
               <FaLinkedin className="w-6 h-6" />
             </Link>
-            <Link href="">
+            <Link href="" target="_blank">
               <FaGithub className="w-6 h-6" />
             </Link>
           </div>
