@@ -11,9 +11,9 @@ function Home() {
       <Hero />
       <Description />
       <HowItsMade />
-      {/*
       <FAQ />
       <Authors />
+      {/*
       <GetInTouch /> */}
     </main>
   );

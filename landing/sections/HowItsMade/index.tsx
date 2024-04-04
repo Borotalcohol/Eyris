@@ -29,7 +29,7 @@ function HowItsMade() {
           <br />
           <br /> In particular, the first step is leveraging a model that,
           acquiring the image of the face from the webcam, is able to recognize
-          various points of it (as shown in the image on the right).
+          various points of it (as shown in the image on the left).
           <br />
           <br />
           The ones we're interested in, are the points that are defining the
@@ -82,7 +82,7 @@ function HowItsMade() {
   return (
     <section
       id="how-its-made"
-      className="grid w-full col-span-12 pt-16 pb-24 grid-cols-subgrid"
+      className="relative grid w-full col-span-12 pt-16 pb-24 grid-cols-subgrid"
     >
       <div className="flex flex-col items-center col-span-3 col-start-3 gap-3 text-center text-white/70 font-avenir">
         <Image
@@ -122,6 +122,7 @@ function HowItsMade() {
           )}
         </div>
       </div>
+      <div className="w-full pointer-events-none h-full absolute top-0 left-0 z-[-2] bg-gradient-to-br from-purple/30 to-darkest-gray/30" />
     </section>
   );
 }
