@@ -4,6 +4,7 @@ import Header from "@/components/Navigation/Header";
 import Footer from "@/components/Navigation/Footer";
 
 import { inter, gotham } from "./fonts";
+
 import "./globals.css";
 
 export const metadata: Metadata = {

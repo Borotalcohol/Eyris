@@ -1,6 +1,7 @@
 import PrimaryButton from "@/components/Button/Primary";
 import SecondaryButton from "@/components/Button/Secondary";
 import Image from "next/image";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -18,7 +19,9 @@ function Hero() {
         </p>
         <div className="flex items-center gap-4">
           <PrimaryButton>Try Demo</PrimaryButton>
-          <SecondaryButton>How It Works</SecondaryButton>
+          <Link href="#how-its-made">
+            <SecondaryButton>How It Works</SecondaryButton>
+          </Link>
         </div>
       </section>
       <div className="col-span-7" />

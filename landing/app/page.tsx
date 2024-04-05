@@ -13,8 +13,7 @@ function Home() {
       <HowItsMade />
       <FAQ />
       <Authors />
-      {/*
-      <GetInTouch /> */}
+      <GetInTouch />
     </main>
   );
 }

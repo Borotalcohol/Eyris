@@ -8,7 +8,7 @@ function FAQ() {
   const faqData = [
     {
       question:
-        "This webapp is opening my webcam, how I'm sure you aren't spying me??",
+        "This webapp is opening my webcam, how can I be sure you aren't spying me??",
       answer: (
         <p>
           We understand your concern about privacy, and we want to assure you

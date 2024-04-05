@@ -11,8 +11,15 @@ function Authors() {
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
       <p className="max-w-5xl text-center text-white font-avenir ">
         We're both MSc students enrolled in the{" "}
-        <b>“Artificial Intelligence for Science and Technology”</b> course
-        offered by: <b>University of Milan-Bicocca, University of Milan</b> and
+        <Link
+          href="https://www.unimib.it/graduate/artificial-intelligence"
+          className="font-bold underline"
+          target="_blank"
+        >
+          “Artificial Intelligence for Science and Technology”
+        </Link>{" "}
+        course offered by:{" "}
+        <b>University of Milan-Bicocca, University of Milan</b> and{" "}
         <b>University of Pavia</b>
       </p>
       <div className="flex items-center w-full max-w-4xl mt-16 justify-evenly">
