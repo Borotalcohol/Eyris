@@ -101,6 +101,7 @@ function HowItsMade() {
         <div className="flex items-center gap-2 mt-8 mb-5">
           {stepsData.map((_, index) => (
             <div
+              key={`step-${index}`}
               className={
                 "w-8 h-2 rounded-full " +
                 (index <= step ? "bg-white" : "bg-white/10")

@@ -22,6 +22,9 @@ function Footer() {
         You liked the project? Consider donating to support us
         <br /> and to allow us to keep this website running
       </p>
+      <div id="donate-button-container" className="mt-6">
+        <div id="donate-button"></div>
+      </div>
     </footer>
   );
 }

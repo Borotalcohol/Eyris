@@ -1,16 +1,19 @@
-import type { Metadata } from "next";
+"use client";
 
 import Header from "@/components/Navigation/Header";
 import Footer from "@/components/Navigation/Footer";
+
+import Script from "next/script";
 
 import { inter, gotham } from "./fonts";
 
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "SpotifEye",
-  description: "Control Spotify Song Reproduction with your Eye Gaze",
-};
+declare global {
+  interface Window {
+    PayPal: Record<string, any>;
+  }
+}
 
 export default function RootLayout({
   children,
@@ -19,6 +22,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
+        strategy="lazyOnload"
+        onLoad={(e) => {
+          if (window.PayPal && window.PayPal.Donation) {
+            window.PayPal.Donation.Button({
+              env: "production",
+              hosted_button_id: "S7Y2QBUEZKZWW",
+              image: {
+                src: "https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif",
+                alt: "Donate with PayPal button",
+                title: "PayPal - The safer, easier way to pay online!",
+              },
+            }).render("#donate-button");
+          }
+        }}
+      />
       <body
         className={
           inter.className +

@@ -96,7 +96,7 @@ function FAQ() {
       <div className="w-full max-w-5xl mt-10 text-white font-avenir">
         {faqData.map((item, index) => {
           return (
-            <Disclosure defaultOpen={index === 0}>
+            <Disclosure key={`faq-${index}`} defaultOpen={index === 0}>
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex flex-col w-full text-left">

@@ -1,9 +1,16 @@
+import { Metadata } from "next";
+
 import Authors from "@/sections/Authors";
 import Description from "@/sections/Description";
 import FAQ from "@/sections/FAQ";
 import GetInTouch from "@/sections/GetInTouch";
 import Hero from "@/sections/Hero";
 import HowItsMade from "@/sections/HowItsMade";
+
+export const metadata: Metadata = {
+  title: "SpotifEye",
+  description: "Control Spotify Song Reproduction using your Eyes!",
+};
 
 function Home() {
   return (
