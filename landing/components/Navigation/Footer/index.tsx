@@ -2,7 +2,10 @@ import Image from "next/image";
 
 function Footer() {
   return (
-    <footer className="flex flex-col items-center col-span-12 pt-12 pb-24 text-center text-white bg-darkest-gray">
+    <footer
+      id="footer"
+      className="flex flex-col items-center col-span-12 pt-12 pb-24 text-center text-white bg-darkest-gray"
+    >
       <div className="flex items-center gap-3">
         <Image
           src="/LogoWhite.svg"
