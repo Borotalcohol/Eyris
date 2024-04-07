@@ -23,6 +23,7 @@ const config: Config = {
       },
       colors: {
         accent: "#1ED760",
+        "dark-accent": "#73f5a2",
         purple: "#E6A9FB",
         ochre: "#FBE9A9",
         gray: "#2D2D2D",

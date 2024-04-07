@@ -45,7 +45,9 @@ function GetInTouch() {
           placeholder="Insert here your message..."
         />
 
-        <SecondaryButton className="mt-5">Send</SecondaryButton>
+        <SecondaryButton className="mt-5" hasHoverEffect={false}>
+          Send
+        </SecondaryButton>
       </form>
     </section>
   );
