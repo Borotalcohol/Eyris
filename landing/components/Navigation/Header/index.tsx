@@ -1,10 +1,42 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 import PrimaryButton from "@/components/Button/Primary";
 import Image from "next/image";
 import Link from "next/link";
 
 function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [yOffset, setYOffset] = useState(0);
+
+  const onScroll = (event: any) => {
+    const { scrollY } = window;
+    setYOffset(scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (yOffset > 80) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  }, [yOffset]);
+
   return (
-    <div className="fixed grid z-[2] w-full grid-cols-12 top">
+    <div
+      className={
+        "fixed grid z-[2] w-full grid-cols-12 top transition-colors duration-300" +
+        (isScrolled ? " bg-darkest-gray/90" : " bg-darkest-gray/0")
+      }
+    >
       <header className="grid col-span-10 col-start-2 pt-5 pb-3 grid-cols-subgrid">
         <div className="flex items-center col-span-7 gap-12">
           <div className="flex items-center gap-3">
@@ -38,7 +70,12 @@ function Header() {
         </div>
       </header>
       <div />
-      <hr className="h-px col-span-10 col-start-2 border-none bg-white/20" />
+      <hr
+        className={
+          "h-px border-none bg-white/20 transition-all  duration-300" +
+          (isScrolled ? " col-span-12" : " col-span-10 col-start-2")
+        }
+      />
       <div />
     </div>
   );
