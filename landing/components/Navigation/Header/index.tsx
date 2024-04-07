@@ -6,29 +6,10 @@ import PrimaryButton from "@/components/Button/Primary";
 import Image from "next/image";
 import Link from "next/link";
 
+import useScroll from "@/hooks/useScroll";
+
 function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [yOffset, setYOffset] = useState(0);
-
-  const onScroll = (event: any) => {
-    const { scrollY } = window;
-    setYOffset(scrollY);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (yOffset > 80) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  }, [yOffset]);
+  const { isScrolled, yOffset } = useScroll();
 
   return (
     <div
