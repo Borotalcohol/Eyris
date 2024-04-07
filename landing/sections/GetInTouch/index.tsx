@@ -3,10 +3,11 @@ import TextfieldBlock from "@/components/Input/TextfieldBlock";
 
 function GetInTouch() {
   return (
-    <section
-      id="get-in-touch"
-      className="flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white"
-    >
+    <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white">
+      <div
+        id="get-in-touch"
+        className="absolute top-0 mt-[-100px] w-full h-6"
+      />
       <h2 className="text-4xl font-black font-gotham">Get In Touch</h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
       <p className="max-w-5xl text-lg font-avenir">

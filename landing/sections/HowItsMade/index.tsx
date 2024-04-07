@@ -82,10 +82,11 @@ function HowItsMade() {
   };
 
   return (
-    <section
-      id="how-its-made"
-      className="relative grid w-full col-span-12 pt-16 pb-24 grid-cols-subgrid"
-    >
+    <section className="relative grid w-full col-span-12 pt-16 pb-24 grid-cols-subgrid">
+      <div
+        id="how-its-made"
+        className="absolute top-0 mt-[-100px] w-full h-6"
+      />
       <div className="flex flex-col items-center col-span-3 col-start-3 gap-3 text-center text-white/70 font-avenir">
         <Image
           src={stepsData[step].imagePath}

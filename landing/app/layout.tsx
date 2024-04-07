@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <Script
         src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
         strategy="lazyOnload"

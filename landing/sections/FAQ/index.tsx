@@ -85,10 +85,8 @@ function FAQ() {
   ];
 
   return (
-    <section
-      id="faq"
-      className="flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white"
-    >
+    <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white">
+      <div id="faq" className="absolute top-0 mt-[-100px] w-full h-6" />
       <h2 className="text-4xl font-black font-gotham">
         Frequently Asked Questions (FAQ)
       </h2>

@@ -1,9 +1,7 @@
 function Description() {
   return (
-    <section
-      id="description"
-      className="flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white bg-gray"
-    >
+    <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white bg-gray">
+      <div id="description" className="absolute top-0 mt-[-100px] w-full h-6" />
       <h2 className="text-4xl font-black font-gotham">What is SpotifEye?</h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
       <p className="max-w-5xl text-lg font-avenir">
