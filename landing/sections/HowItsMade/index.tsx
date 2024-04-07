@@ -104,7 +104,7 @@ function HowItsMade() {
             <div
               key={`step-${index}`}
               className={
-                "w-8 h-2 rounded-full " +
+                "w-8 h-2 rounded-full transition-colors duration-300 ease-in-out " +
                 (index <= step ? "bg-white" : "bg-white/10")
               }
             ></div>
