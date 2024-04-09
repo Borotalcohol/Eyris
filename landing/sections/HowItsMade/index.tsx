@@ -14,7 +14,7 @@ function HowItsMade() {
     {
       imagePath: "/FaceLandmarks.png",
       reference: (
-        <p>
+        <p className="text-sm xl:text-md">
           Image from:{" "}
           <a
             className="underline text-white/90"
@@ -26,7 +26,7 @@ function HowItsMade() {
         </p>
       ),
       text: (
-        <p>
+        <p className="max-w-lg text-center xl:text-left">
           At the core of it all there is AI.
           <br />
           <br /> In particular, the first step is leveraging a model that,
@@ -42,10 +42,12 @@ function HowItsMade() {
     {
       imagePath: "/EyesLandmarks.png",
       reference: (
-        <p>Left and right eye extracted using Dlib and OpenCV (Our dataset)</p>
+        <p className="text-sm xl:text-md">
+          Left and right eye extracted using Dlib and OpenCV (Our dataset)
+        </p>
       ),
       text: (
-        <p>
+        <p className="max-w-lg text-center xl:text-left">
           After a face has been detected, and we have drawn the landmarks, we
           can use the ones regarding the two eyes to extract two images: one for
           the left and the other for the right eye.
@@ -57,9 +59,13 @@ function HowItsMade() {
     },
     {
       imagePath: "/ModelArchitecture.png",
-      reference: <p>Simplified representation of our custom model</p>,
+      reference: (
+        <p className="text-sm xl:text-md">
+          Simplified representation of our custom model
+        </p>
+      ),
       text: (
-        <p>
+        <p className="max-w-lg text-center xl:text-left">
           The final step is to plug inside our custom and very simple AI model
           the images of the two eyes and get its prediction about the direction
           in which they're more likely to be looking at (left, right, up, down
@@ -82,29 +88,31 @@ function HowItsMade() {
   };
 
   return (
-    <section className="relative grid w-full col-span-12 pt-16 pb-24 grid-cols-subgrid">
+    <section className="relative flex flex-col w-full col-span-12 pt-10 pb-24 xl:grid xl:pt-16 xl:grid-cols-subgrid">
       <div
         id="how-its-made"
         className="absolute top-0 mt-[-100px] w-full h-6"
       />
-      <div className="flex flex-col items-center col-span-3 col-start-3 gap-3 text-center text-white/70 font-avenir">
+      <div className="flex flex-col items-center gap-3 text-center xl:col-span-4 2xl:col-span-3 xl:col-start-2 2xl:col-start-3 text-white/70 font-avenir">
         <Image
           src={stepsData[step].imagePath}
           alt="Step Image"
           width={500}
           height={600}
-          className="w-full max-w-[80%] rounded-lg"
+          className="w-full max-w-[220px] xl:max-w-[80%] rounded-lg"
         />
         {stepsData[step].reference}
       </div>
-      <div className="flex flex-col col-span-4 col-start-6 gap-3 pl-3 text-lg text-white">
-        <h3 className="mt-6 text-4xl font-black font-gotham">How It's Made</h3>
-        <div className="flex items-center gap-2 mt-8 mb-5">
+      <div className="flex flex-col items-center gap-3 pl-3 text-white text-md xl:text-lg xl:items-start xl:col-span-5 xl:col-start-6 2xl:col-span-4 2xl:col-start-6">
+        <h3 className="mt-6 text-3xl font-black xl:text-4xl font-gotham">
+          How It's Made
+        </h3>
+        <div className="flex items-center gap-2 mt-3 mb-2 xl:mt-8 xl:mb-5">
           {stepsData.map((_, index) => (
             <div
               key={`step-${index}`}
               className={
-                "w-8 h-2 rounded-full transition-colors duration-300 ease-in-out " +
+                "w-6 xl:w-8 h-[6px] xl:h-2 rounded-full transition-colors duration-300 ease-in-out " +
                 (index <= step ? "bg-white" : "bg-white/10")
               }
             ></div>
