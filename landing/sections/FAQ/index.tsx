@@ -85,13 +85,13 @@ function FAQ() {
   ];
 
   return (
-    <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white">
+    <section className="relative flex flex-col items-center justify-center w-full col-span-12 px-6 pt-10 pb-24 text-center text-white xl:pt-16">
       <div id="faq" className="absolute top-0 mt-[-100px] w-full h-6" />
-      <h2 className="text-4xl font-black font-gotham">
+      <h2 className="text-3xl font-black xl:text-4xl font-gotham">
         Frequently Asked Questions (FAQ)
       </h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
-      <div className="w-full max-w-5xl mt-10 text-white font-avenir">
+      <div className="w-full max-w-5xl mt-5 text-white xl:mt-10 font-avenir">
         {faqData.map((item, index) => {
           return (
             <Disclosure key={`faq-${index}`} defaultOpen={index === 0}>
@@ -99,11 +99,13 @@ function FAQ() {
                 <>
                   <Disclosure.Button className="flex flex-col w-full text-left">
                     <div className="flex items-center justify-between w-full py-3">
-                      <h4 className="text-xl font-medium">{item.question}</h4>
+                      <h4 className="flex-1 text-lg font-medium text-left text-wrap xl:text-xl">
+                        {item.question}
+                      </h4>
                       <ChevronDownIcon
                         className={`${
-                          open ? "rotate-180 transform duration-300" : ""
-                        } w-8 h-8`}
+                          open ? "rotate-180 ml-2 transform duration-300" : ""
+                        } w-6 h-6 xl:w-8 xl:h-8`}
                       />
                     </div>
                     <hr className="w-full h-px border-none bg-white/20" />
@@ -116,7 +118,7 @@ function FAQ() {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <Disclosure.Panel className="py-8 text-lg text-left">
+                    <Disclosure.Panel className="py-8 text-left text-md xl:text-lg">
                       {item.answer}
                     </Disclosure.Panel>
                   </Transition>
