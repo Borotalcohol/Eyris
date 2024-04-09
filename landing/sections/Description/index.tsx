@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Description() {
   return (
     <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white bg-gray">
@@ -12,7 +14,14 @@ function Description() {
         <b>“Intelligent Consumers Technologies”</b>: the starting point was the
         so called <b>e-tran alphabet</b> that makes it possible to communicate
         with people with motion and speech impairments (refer to{" "}
-        <b>this video</b> to learn how this method works).
+        <Link
+          className="font-bold underline"
+          href="https://www.youtube.com/watch?v=lfLuqGAxaz4"
+          target="_blank"
+        >
+          this video
+        </Link>{" "}
+        to learn how this method works).
         <br />
         <br /> Technology and AI can help us give back to such people some
         independence, by{" "}
