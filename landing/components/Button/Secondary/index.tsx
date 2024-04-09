@@ -24,7 +24,7 @@ const SecondaryButton: React.FC<ButtonProps> = ({
       }
       {...rest}
     >
-      <span className="relative z-10 flex items-center justify-center gap-1">
+      <span className="relative flex items-center justify-center gap-1 z-2">
         {children}
       </span>
     </button>

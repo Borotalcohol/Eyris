@@ -22,11 +22,11 @@ function ScrollToTop() {
       <button
         onClick={scrollToTop}
         className={
-          "fixed flex items-center justify-center w-16 h-16 bg-[#EEE] rounded-full cursor-pointer z-[12] bottom-10 right-10 " +
+          "fixed flex items-center justify-center w-16 h-16 bg-[#EEE] rounded-full z-[2] cursor-pointer bottom-10 right-10 " +
           hoverEffect
         }
       >
-        <ChevronUpIcon className="w-8 h-8 text-darkest-gray z-[13]" />
+        <ChevronUpIcon className="w-8 h-8 text-darkest-gray z-[3]" />
       </button>
     );
 }
