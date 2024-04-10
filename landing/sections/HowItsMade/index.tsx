@@ -26,7 +26,7 @@ function HowItsMade() {
         </p>
       ),
       text: (
-        <p className="max-w-lg text-center xl:text-left">
+        <p className="w-full max-w-lg text-center xl:text-left">
           At the core of it all there is AI.
           <br />
           <br /> In particular, the first step is leveraging a model that,
@@ -47,7 +47,7 @@ function HowItsMade() {
         </p>
       ),
       text: (
-        <p className="max-w-lg text-center xl:text-left">
+        <p className="w-full max-w-lg text-center xl:text-left">
           After a face has been detected, and we have drawn the landmarks, we
           can use the ones regarding the two eyes to extract two images: one for
           the left and the other for the right eye.
@@ -65,7 +65,7 @@ function HowItsMade() {
         </p>
       ),
       text: (
-        <p className="max-w-lg text-center xl:text-left">
+        <p className="w-full max-w-lg text-center xl:text-left">
           The final step is to plug inside our custom and very simple AI model
           the images of the two eyes and get its prediction about the direction
           in which they're more likely to be looking at (left, right, up, down
@@ -88,7 +88,7 @@ function HowItsMade() {
   };
 
   return (
-    <section className="relative flex flex-col w-full col-span-12 px-6 pt-10 pb-24 xl:grid xl:pt-16 xl:grid-cols-subgrid">
+    <section className="relative flex flex-col w-full col-span-12 pt-10 pb-24 xl:grid xl:pt-16 xl:grid-cols-subgrid">
       <div
         id="how-its-made"
         className="absolute top-0 mt-[-100px] w-full h-6"
@@ -103,7 +103,7 @@ function HowItsMade() {
         />
         {stepsData[step].reference}
       </div>
-      <div className="flex flex-col items-center gap-3 pl-3 text-white text-md xl:text-lg xl:items-start xl:col-span-5 xl:col-start-6 2xl:col-span-4 2xl:col-start-6">
+      <div className="flex flex-col items-center gap-3 px-6 text-white xl:px-0 xl:pl-3 text-md xl:text-lg xl:items-start xl:col-span-5 xl:col-start-6 2xl:col-span-4 2xl:col-start-6">
         <h3 className="mt-6 text-3xl font-black xl:text-4xl font-gotham">
           How It's Made
         </h3>
