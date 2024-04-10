@@ -14,7 +14,7 @@ function HowItsMade() {
     {
       imagePath: "/FaceLandmarks.png",
       reference: (
-        <p className="text-sm xl:text-md">
+        <p className="w-full max-w-lg text-sm xl:text-md">
           Image from:{" "}
           <a
             className="underline text-white/90"
@@ -42,7 +42,7 @@ function HowItsMade() {
     {
       imagePath: "/EyesLandmarks.png",
       reference: (
-        <p className="text-sm xl:text-md">
+        <p className="w-full max-w-lg text-sm xl:text-md">
           Left and right eye extracted using Dlib and OpenCV (Our dataset)
         </p>
       ),
@@ -60,7 +60,7 @@ function HowItsMade() {
     {
       imagePath: "/ModelArchitecture.png",
       reference: (
-        <p className="text-sm xl:text-md">
+        <p className="w-full max-w-lg text-sm xl:text-md">
           Simplified representation of our custom model
         </p>
       ),
@@ -93,7 +93,7 @@ function HowItsMade() {
         id="how-its-made"
         className="absolute top-0 mt-[-100px] w-full h-6"
       />
-      <div className="flex flex-col items-center gap-3 text-center xl:col-span-4 2xl:col-span-3 xl:col-start-2 2xl:col-start-3 text-white/70 font-avenir">
+      <div className="flex flex-col items-center gap-3 px-6 text-center xl:px-0 xl:col-span-4 2xl:col-span-3 xl:col-start-2 2xl:col-start-3 text-white/70 font-avenir">
         <Image
           src={stepsData[step].imagePath}
           alt="Step Image"
