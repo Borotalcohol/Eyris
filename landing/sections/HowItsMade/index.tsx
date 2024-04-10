@@ -88,7 +88,7 @@ function HowItsMade() {
   };
 
   return (
-    <section className="relative flex flex-col w-full col-span-12 pt-10 pb-24 xl:grid xl:pt-16 xl:grid-cols-subgrid">
+    <section className="relative flex flex-col w-full col-span-12 px-6 pt-10 pb-24 xl:grid xl:pt-16 xl:grid-cols-subgrid">
       <div
         id="how-its-made"
         className="absolute top-0 mt-[-100px] w-full h-6"
