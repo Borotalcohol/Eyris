@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className="flex flex-col items-center col-span-12 pt-12 pb-24 text-center text-white bg-darkest-gray"
+      className="flex flex-col items-center col-span-12 px-6 pt-12 pb-24 text-center text-white xl:px-0 bg-darkest-gray"
     >
       <div className="flex items-center gap-3">
         <Image
@@ -17,11 +17,11 @@ function Footer() {
           SpotifEye
         </h3>
       </div>
-      <p className="max-w-5xl mt-6 text-md font-avenir">
+      <p className="max-w-5xl mt-6 text-sm xl:text-md font-avenir">
         Control Spotify song reproduction with your eyes.
       </p>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
-      <p className="max-w-5xl text-md font-avenir">
+      <p className="max-w-5xl text-sm xl:text-md font-avenir">
         You liked the project? Consider donating to support us
         <br /> and to allow us to keep this website running
       </p>
