@@ -3,14 +3,16 @@ import TextfieldBlock from "@/components/Input/TextfieldBlock";
 
 function GetInTouch() {
   return (
-    <section className="relative flex flex-col items-center justify-center w-full col-span-12 pt-16 pb-24 text-center text-white">
+    <section className="relative flex flex-col items-center justify-center w-full col-span-12 px-6 pt-10 pb-24 text-center text-white xl:pt-16">
       <div
         id="get-in-touch"
         className="absolute top-0 mt-[-100px] w-full h-6"
       />
-      <h2 className="text-4xl font-black font-gotham">Get In Touch</h2>
+      <h2 className="text-3xl font-black xl:text-4xl font-gotham">
+        Get In Touch
+      </h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
-      <p className="max-w-5xl text-lg font-avenir">
+      <p className="max-w-5xl text-md xl:text-lg font-avenir">
         You have an idea? you want to give us a feedback or you're interested in
         knowing something more about the project? Feel free to fill in the form
         down below and we'll answer as soon as possible!

@@ -20,7 +20,7 @@ function TextfieldBlock({
   return (
     <div className="flex flex-col items-start justify-start w-full gap-4 text-left">
       <label
-        className="text-lg font-medium text-white font-avenir"
+        className="font-medium text-white text-md xl:text-lg font-avenir"
         htmlFor={name}
       >
         {label}
