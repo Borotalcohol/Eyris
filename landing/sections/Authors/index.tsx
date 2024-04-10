@@ -12,7 +12,7 @@ function Authors() {
         The Authors
       </h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
-      <p className="max-w-5xl text-center text-white font-avenir ">
+      <p className="max-w-5xl text-center text-white text-md xl:text-lg font-avenir ">
         We're both MSc students enrolled in the{" "}
         <Link
           href="https://www.unimib.it/graduate/artificial-intelligence"

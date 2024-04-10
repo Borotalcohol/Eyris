@@ -43,7 +43,7 @@ function AuthorCard({
         className="object-cover rounded-lg"
       />
       <div className="absolute bottom-0 left-0 flex flex-col items-center justify-end w-full h-24 align-bottom rounded-b-lg bg-gradient-to-t from-black/90 to-black/0">
-        <p className="px-2 mb-3 text-xl font-medium text-center text-white font-avenir">
+        <p className="px-2 mb-3 text-lg font-medium text-center text-white md:text-xl font-avenir">
           {authorName}
         </p>
       </div>
