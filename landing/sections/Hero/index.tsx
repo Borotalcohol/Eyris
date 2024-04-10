@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function Hero() {
   return (
-    <div className="relative grid col-span-12 grid-cols-subgrid">
+    <div className="relative grid col-span-12 px-6 grid-cols-subgrid">
       <section className="flex flex-col col-span-12 justify-center items-center text-center xl:items-start py-[100px] xl:text-left xl:col-span-7 2xl:col-span-5 xl:col-start-2 2xl:col-start-2 gap-12 xl:py-[150px] 2xl:py-[200px]">
         <h1 className="text-5xl font-black text-white xl:text-7xl font-gotham">
           Eye-Gaze

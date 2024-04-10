@@ -67,7 +67,11 @@ function Header() {
             </h3>
           </div>
           <button className="flex items-center justify-center invisible xl:hidden">
-            <Bars3BottomLeftIcon className="w-6 h-6 text-white" />
+            {isMobileMenuOpen ? (
+              <XMarkIcon className="w-6 h-6 text-white" />
+            ) : (
+              <Bars3BottomLeftIcon className="w-6 h-6 text-white" />
+            )}
           </button>
           <ul className="items-end gap-8 text-lg font-[400] text-white font-avenir hidden xl:flex">
             <li>
