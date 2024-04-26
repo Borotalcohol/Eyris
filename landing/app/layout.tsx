@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import Header from "@/components/Navigation/Header";
 import Footer from "@/components/Navigation/Footer";
 
@@ -5,6 +7,7 @@ import { inter, gotham } from "./fonts";
 import { Metadata } from "next";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 
+import GoogleAnalytics from "@/components/google-analytics";
 import PayPalDonate from "@/utils/PayPalDonate";
 
 import "./globals.css";
@@ -12,6 +15,7 @@ import "./globals.css";
 declare global {
   interface Window {
     PayPal: Record<string, any>;
+    gtag: (...args: any[]) => void;
   }
 }
 
@@ -32,6 +36,11 @@ export default async function RootLayout({
     >
       <html lang="en" className="scroll-smooth">
         <PayPalDonate />
+        <Suspense fallback={<div></div>}>
+          <GoogleAnalytics
+            GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""}
+          />
+        </Suspense>
         <body
           className={
             inter.className +
