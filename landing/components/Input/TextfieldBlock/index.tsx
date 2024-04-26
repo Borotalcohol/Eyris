@@ -1,13 +1,14 @@
 import Textfield from "../Textfield";
 
-type TextfieldBlockProps = {
+interface TextfieldBlockProps
+  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   id: string;
   name: string;
   label: string;
   type?: string;
   inputType?: string;
   placeholder: string;
-};
+}
 
 function TextfieldBlock({
   id,
@@ -16,6 +17,7 @@ function TextfieldBlock({
   type = "input",
   inputType = "text",
   placeholder,
+  ...rest
 }: TextfieldBlockProps) {
   return (
     <div className="flex flex-col items-start justify-start w-full gap-4 text-left">
@@ -32,6 +34,7 @@ function TextfieldBlock({
         inputType={inputType}
         placeholder={placeholder}
         className=""
+        {...rest}
       />
     </div>
   );

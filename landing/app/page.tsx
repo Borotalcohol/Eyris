@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+"use server";
 
 import Authors from "@/sections/Authors";
 import Description from "@/sections/Description";
@@ -8,12 +8,7 @@ import Hero from "@/sections/Hero";
 import HowItsMade from "@/sections/HowItsMade";
 import ScrollToTop from "@/components/ScrollToTop";
 
-export const metadata: Metadata = {
-  title: "SpotifEye",
-  description: "Control Spotify Song Reproduction using your Eyes!",
-};
-
-function Home() {
+export default async function Home() {
   return (
     <main className="grid min-h-screen col-span-12 grid-cols-subgrid">
       <ScrollToTop />
@@ -26,5 +21,3 @@ function Home() {
     </main>
   );
 }
-
-export default Home;

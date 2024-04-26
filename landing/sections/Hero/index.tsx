@@ -34,6 +34,7 @@ function Hero() {
         alt="Background Image"
         width={600}
         height={400}
+        priority
       />
       <div className="w-full pointer-events-none h-full absolute top-0 left-0 z-[-2] bg-gradient-to-t xl:bg-gradient-to-br from-10% xl:from-25% from-darkest-gray to-[#134324]" />
     </div>

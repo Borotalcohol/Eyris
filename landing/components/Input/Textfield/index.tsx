@@ -1,11 +1,12 @@
-type TextfieldProps = {
+interface TextfieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   id: string;
   name: string;
   placeholder: string;
   type?: string;
   inputType?: string;
   className?: string;
-};
+}
 
 function Textfield({
   id,
@@ -14,6 +15,7 @@ function Textfield({
   type = "input",
   inputType = "text",
   className = "",
+  ...rest
 }: TextfieldProps) {
   const _className =
     "w-full px-4 py-3 text-white border rounded-md bg-white/10 border-white/60 placeholder:text-white/70 font-avenir " +
@@ -28,6 +30,7 @@ function Textfield({
           className={_className + " max-h-[50px]"}
           type={inputType!}
           placeholder={placeholder}
+          {...rest}
         />
       );
     case "textarea":
@@ -38,6 +41,7 @@ function Textfield({
           rows={4}
           className={_className}
           placeholder={placeholder}
+          {...rest}
         />
       );
     default:
@@ -48,6 +52,7 @@ function Textfield({
           className={_className + " max-h-[50px]"}
           type={inputType!}
           placeholder={placeholder}
+          {...rest}
         />
       );
   }

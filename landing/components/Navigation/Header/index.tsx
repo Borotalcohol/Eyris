@@ -75,7 +75,7 @@ function Header() {
           </button>
           <ul className="items-end gap-8 text-lg font-[400] text-white font-avenir hidden xl:flex">
             <li>
-              <Link href="#description">How it's Made</Link>
+              <Link href="#description">What is SpotifEye</Link>
             </li>
             <li>
               <Link href="#how-its-made">How it's Made</Link>

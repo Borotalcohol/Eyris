@@ -12,7 +12,7 @@ function Description() {
         <b>SpotifEye</b> is an academic project realized by{" "}
         <b>Christian Loschiavo</b> and <b>Alessandro Ruben Jarach</b>.<br />
         <br />
-        The project was issued for final examination of a course named
+        The project was issued for final examination of a course named{" "}
         <b>“Intelligent Consumers Technologies”</b>: the starting point was the
         so called <b>e-tran alphabet</b> that makes it possible to communicate
         with people with motion and speech impairments (refer to{" "}
