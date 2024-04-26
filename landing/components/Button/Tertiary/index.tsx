@@ -1,13 +1,16 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
+import { Box, CircularProgress } from "@mui/material";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
+  loading?: boolean;
 }
 
 const TertiaryButton: React.FC<ButtonProps> = ({
   children,
   className = "",
+  loading = false,
   ...rest
 }) => {
   const hoverEffect =
@@ -21,11 +24,24 @@ const TertiaryButton: React.FC<ButtonProps> = ({
         " " +
         hoverEffect
       }
+      disabled={loading}
       {...rest}
     >
-      <span className="relative z-10 flex items-center justify-center gap-1">
-        {children}
-      </span>
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress thickness={4} size={20} color="inherit" />
+        </Box>
+      ) : (
+        <span className="relative z-10 flex items-center justify-center gap-1">
+          {children}
+        </span>
+      )}
     </button>
   );
 };

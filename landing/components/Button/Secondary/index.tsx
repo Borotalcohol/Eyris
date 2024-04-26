@@ -2,22 +2,21 @@
 
 import { Box, CircularProgress } from "@mui/material";
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import { useFormStatus } from "react-dom";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
+  loading?: boolean;
   hasHoverEffect?: boolean;
 }
 
 const SecondaryButton: React.FC<ButtonProps> = ({
   children,
   className = "",
+  loading = false,
   hasHoverEffect = true,
   ...rest
 }) => {
-  const { pending } = useFormStatus();
-
   const hoverEffect =
     "relative overflow-hidden transition-all hover:shadow-[0_0_50px_5px_rgba(255,255,255,0.3)] before:absolute before:h-0 before:w-0 before:rounded-full before:bg-white before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56";
 
@@ -28,10 +27,10 @@ const SecondaryButton: React.FC<ButtonProps> = ({
         className +
         (hasHoverEffect ? " " + hoverEffect : "bg-white")
       }
-      disabled={pending}
+      disabled={loading}
       {...rest}
     >
-      {pending ? (
+      {loading ? (
         <Box
           sx={{
             display: "flex",
