@@ -36,6 +36,7 @@ function GetInTouch() {
         notifySuccess(res.message);
         form.reset();
       } else {
+        console.log(res.message);
         notifyError();
       }
 
@@ -65,8 +66,8 @@ function GetInTouch() {
         onSubmit={handleFormSubmit}
       >
         <TextfieldBlock
-          id="fullName"
-          name="fullName"
+          id="full_name"
+          name="full_name"
           label="Full Name"
           minLength={3}
           maxLength={50}
@@ -75,8 +76,8 @@ function GetInTouch() {
         />
 
         <TextfieldBlock
-          id="emailAddress"
-          name="emailAddress"
+          id="email_address"
+          name="email_address"
           inputType="email"
           minLength={3}
           maxLength={50}
@@ -89,7 +90,7 @@ function GetInTouch() {
           id="title"
           name="title"
           minLength={3}
-          maxLength={50}
+          maxLength={256}
           label="Title"
           placeholder="Insert here the title of your message..."
           required={true}
