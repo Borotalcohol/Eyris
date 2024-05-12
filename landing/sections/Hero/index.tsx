@@ -1,9 +1,15 @@
+"use client";
+
 import PrimaryButton from "@/components/Button/Primary";
 import SecondaryButton from "@/components/Button/Secondary";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useDialog } from "@/utils/DialogContext";
+
 function Hero() {
+  const { openDialog } = useDialog();
+
   return (
     <div className="relative grid col-span-12 px-6 grid-cols-subgrid">
       <section className="flex flex-col col-span-12 justify-center items-center text-center xl:items-start py-[100px] xl:text-left xl:col-span-7 2xl:col-span-5 xl:col-start-2 2xl:col-start-2 gap-12 xl:py-[150px] 2xl:py-[200px]">
@@ -18,7 +24,9 @@ function Hero() {
           using your eyes.
         </p>
         <div className="flex flex-col items-center gap-4 md:flex-row w-max">
-          <PrimaryButton className="w-full md:w-auto">Try Demo</PrimaryButton>
+          <PrimaryButton onClick={openDialog} className="w-full md:w-auto">
+            Try Demo
+          </PrimaryButton>
           <Link href="#how-its-made" className="w-full md:w-auto">
             <SecondaryButton>How It Works</SecondaryButton>
           </Link>

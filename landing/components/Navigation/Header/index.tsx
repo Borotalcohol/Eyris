@@ -11,9 +11,12 @@ import useScroll from "@/hooks/useScroll";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useRouter } from "next/navigation";
 
+import { useDialog } from "@/utils/DialogContext";
+
 function Header() {
   const router = useRouter();
   const { isScrolled, yOffset } = useScroll();
+  const { openDialog } = useDialog();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMobileMenuToggle = () => {
@@ -78,7 +81,7 @@ function Header() {
               <Link href="#description">What is SpotifEye</Link>
             </li>
             <li>
-              <Link href="#how-its-made">How it's Made</Link>
+              <Link href="#how-its-made">How it&apos;s Made</Link>
             </li>
             <li>
               <Link href="#faq">FAQ</Link>
@@ -89,7 +92,7 @@ function Header() {
           </ul>
         </div>
         <div className="items-center justify-end hidden col-span-3 xl:flex">
-          <PrimaryButton>Try Demo</PrimaryButton>
+          <PrimaryButton onClick={openDialog}>Try Demo</PrimaryButton>
         </div>
       </header>
       <div />
@@ -120,7 +123,7 @@ function Header() {
           </li>
           <li>
             <button onClick={() => handleLinkClick("#how-its-made")}>
-              How it's Made
+              How it&apos;s Made
             </button>
           </li>
           <li>
@@ -132,7 +135,9 @@ function Header() {
             </button>
           </li>
         </ul>
-        <PrimaryButton className="w-full mt-8">Try Demo</PrimaryButton>
+        <PrimaryButton onClick={openDialog} className="w-full mt-8">
+          Try Demo
+        </PrimaryButton>
       </motion.div>
     </div>
   );
