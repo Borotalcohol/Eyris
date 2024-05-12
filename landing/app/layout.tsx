@@ -3,16 +3,17 @@ import { Suspense } from "react";
 import Header from "@/components/Navigation/Header";
 import Footer from "@/components/Navigation/Footer";
 
-import { inter, gotham } from "./fonts";
+import { inter, gotham, avenirltstd } from "./fonts";
 import { Metadata } from "next";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 
 import GoogleAnalytics from "@/components/google-analytics";
 import PayPalDonate from "@/utils/PayPalDonate";
 
-import "./globals.css";
 import { DialogProvider } from "@/utils/DialogContext";
 import HeroDialog from "@/components/Dialog";
+
+import "./globals.css";
 
 declare global {
   interface Window {
@@ -47,10 +48,12 @@ export default async function RootLayout({
         </Suspense>
         <body
           className={
-            inter.className +
+            "bg-dark-gray font-inter grid grid-cols-12 gap-4 !leading-none " +
+            inter.variable +
             " " +
-            gotham.className +
-            " bg-dark-gray font-inter grid grid-cols-12 gap-4"
+            avenirltstd.variable +
+            " " +
+            gotham.variable
           }
         >
           <DialogProvider>
