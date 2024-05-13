@@ -16,7 +16,7 @@ function PayPalDonate() {
             image: {
               src: "https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif",
               alt: "Donate with PayPal button",
-              with: 147,
+              width: 147,
               height: 47,
               title: "PayPal - The safer, easier way to pay online!",
             },
