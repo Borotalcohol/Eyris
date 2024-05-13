@@ -36,7 +36,6 @@ function GetInTouch() {
         notifySuccess(res.message);
         form.reset();
       } else {
-        console.log(res.message);
         notifyError();
       }
 

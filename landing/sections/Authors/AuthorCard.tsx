@@ -25,13 +25,24 @@ function AuthorCard({
   return (
     <div className={"relative flex flex-col w-full max-w-[240px] " + className}>
       <div className="absolute top-0 left-0 flex justify-end w-full h-24 gap-3 px-4 pt-4 text-white align-bottom rounded-t-lg bg-gradient-to-b from-black/90 to-black/0">
-        <Link href={`mailto:${emailAddress}`}>
+        <Link
+          href={`mailto:${emailAddress}`}
+          aria-label={`Write Email to ${emailAddress}`}
+        >
           <MdAlternateEmail className="w-6 h-6" />
         </Link>
-        <Link href={linkedinProfileUrl} target="_blank">
+        <Link
+          href={linkedinProfileUrl}
+          target="_blank"
+          aria-label={`Visit Linkedin Profile of ${authorName}`}
+        >
           <FaLinkedin className="w-6 h-6" />
         </Link>
-        <Link href={githubProfileUrl} target="_blank">
+        <Link
+          href={githubProfileUrl}
+          target="_blank"
+          aria-label={`Visit GitHub Profile of ${authorName}`}
+        >
           <FaGithub className="w-6 h-6" />
         </Link>
       </div>

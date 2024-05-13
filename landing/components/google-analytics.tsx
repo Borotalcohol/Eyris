@@ -24,10 +24,14 @@ export default function GoogleAnalytics({
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        defer={true}
+        async={true}
       />
       <Script
         id="google-analytics"
         strategy="afterInteractive"
+        defer={true}
+        async={true}
         dangerouslySetInnerHTML={{
           __html: `
                 window.dataLayer = window.dataLayer || [];

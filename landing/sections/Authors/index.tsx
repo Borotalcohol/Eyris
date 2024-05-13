@@ -37,7 +37,7 @@ function Authors() {
         <AuthorCard
           emailAddress="a.jarach1@campus.unimib.it"
           linkedinProfileUrl="https://www.linkedin.com/in/alessandro-ruben-jarach-502620224/"
-          githubProfileUrl="#"
+          githubProfileUrl="https://github.com/ArJarach"
           profileImageSrc="/Alessandro.png"
           profileImageAlt="Alessandro Ruben Jarach"
           authorName="Alessandro Ruben Jarach"

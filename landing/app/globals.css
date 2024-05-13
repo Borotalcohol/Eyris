@@ -9,3 +9,7 @@
 .grecaptcha-badge {
   visibility: hidden !important;
 }
+
+p {
+  line-height: 2rem !important;
+}

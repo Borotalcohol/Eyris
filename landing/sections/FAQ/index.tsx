@@ -99,9 +99,9 @@ function FAQ() {
                 <>
                   <Disclosure.Button className="flex flex-col w-full text-left">
                     <div className="flex items-center justify-between w-full py-3">
-                      <h4 className="flex-1 text-lg font-medium text-left text-wrap xl:text-xl">
+                      <h3 className="flex-1 text-lg font-medium text-left text-wrap xl:text-xl">
                         {item.question}
-                      </h4>
+                      </h3>
                       <ChevronDownIcon
                         className={`${
                           open ? "rotate-180 ml-2 transform duration-300" : ""

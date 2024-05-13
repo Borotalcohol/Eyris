@@ -50,6 +50,7 @@ function Header() {
           <button
             onClick={handleMobileMenuToggle}
             className="flex items-center justify-center xl:hidden"
+            aria-label="Toggle Mobile Menu"
           >
             {isMobileMenuOpen ? (
               <XMarkIcon className="w-6 h-6 text-white" />
