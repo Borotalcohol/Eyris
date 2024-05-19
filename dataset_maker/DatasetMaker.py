@@ -105,7 +105,7 @@ class SimpleTkinterWindow:
         cv2.imwrite(new_file_path_r, np.array(right_eye_image))
 
 def opencv_config():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture('/dev/video0')
 
     BaseOptions = mp.tasks.BaseOptions
     FaceLandmarker = mp.tasks.vision.FaceLandmarker
