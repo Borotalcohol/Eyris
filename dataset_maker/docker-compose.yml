@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "5900:5900"
+    volumes:
+      - ./data:/app/dataset
+      - ./landmarks.csv:/app/landmarks.csv
+    devices:
+      - "/dev/video0:/dev/video0"
+    group_add:
+      - ${VIDEO_GROUP_ID}
+    environment:
+      - DISPLAY=:99
+    stdin_open: true
+    tty: true
+
+volumes:
+  app-data:
+  app-logs:
