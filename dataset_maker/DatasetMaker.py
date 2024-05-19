@@ -1,5 +1,7 @@
 import os
 import cv2
+import queue
+import threading
 import numpy as np
 import tkinter as tk
 from PIL import Image, ImageTk
@@ -13,6 +15,30 @@ model_path = './face_landmarker.task'
 dataset_path = './dataset'
 data_filename = 'landmarks.csv'
 user_id = "christian_desktop_noglasses"
+
+class VideoCapture:
+  def __init__(self, name):
+    self.cap = cv2.VideoCapture(name)
+    self.q = queue.Queue()
+    t = threading.Thread(target=self._reader)
+    t.daemon = True
+    t.start()
+
+  # read frames as soon as they are available, keeping only most recent one
+  def _reader(self):
+    while True:
+      ret, frame = self.cap.read()
+      if not ret:
+        break
+      if not self.q.empty():
+        try:
+          self.q.get_nowait()   # discard previous (unprocessed) frame
+        except queue.Empty:
+          pass
+      self.q.put(frame)
+
+  def read(self):
+    return self.q.get()
 
 class SimpleTkinterWindow:
     def __init__(self, root, cap, landmarker, numeric_ids = [0,0,0,0,0]):
@@ -105,7 +131,7 @@ class SimpleTkinterWindow:
         cv2.imwrite(new_file_path_r, np.array(right_eye_image))
 
 def opencv_config():
-    cap = cv2.VideoCapture('/dev/video0')
+    cap = VideoCapture('/dev/video0')
 
     BaseOptions = mp.tasks.BaseOptions
     FaceLandmarker = mp.tasks.vision.FaceLandmarker
@@ -121,7 +147,7 @@ def opencv_config():
 
 
 def get_face_landmarks(cap, landmarker):
-    _, frame = cap.read()
+    frame = cap.read()
     frame = cv2.flip(frame, 1)
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
     face_landmarker_result = landmarker.detect(mp_image)
