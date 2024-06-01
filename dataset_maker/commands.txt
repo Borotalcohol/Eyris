@@ -1,0 +1,13 @@
+Start the ffmpeg udp localhost stream of the webcam:
+ffmpeg -f avfoundation -framerate 30 -video_size 1280x720 -i "0:0" -fifo_size 10000000 -overrun_nonfatal 1 -c:v libx264 -crf 23 -pix_fmt yuv420p -preset ultrafast -threads 2 -f mpegts udp://localhost:12345
+
+Start the docker container and updating it if code changed:
+docker compose up --build
+
+Start the docker container (without updating content):
+docker compose up
+
+Current Setup
+- Docker Container: The Python Tkinter application runs inside a Docker container. This setup helps avoid compatibility and version issues across different devices.
+- UI Interaction: Port 5900 is exposed by the container to stream the UI. VNC viewer can be used to interact with the application. VNC viewer is supported by all major operating systems (Windows, Linux, and macOS).
+- Webcam Access: The Docker container cannot directly access the webcam of the physical device. To work around this, an FFmpeg UDP stream from the webcam is started locally. The webcam content is then accessed by the container through this UDP stream.

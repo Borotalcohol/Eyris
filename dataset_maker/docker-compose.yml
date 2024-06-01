@@ -5,13 +5,10 @@ services:
     build: .
     ports:
       - "5900:5900"
+      - "12345:12345/udp"
     volumes:
       - ./data:/app/dataset
       - ./landmarks.csv:/app/landmarks.csv
-    devices:
-      - "/dev/video0:/dev/video0"
-    group_add:
-      - ${VIDEO_GROUP_ID}
     environment:
       - DISPLAY=:99
     stdin_open: true

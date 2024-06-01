@@ -24,7 +24,6 @@ class VideoCapture:
     t.daemon = True
     t.start()
 
-  # read frames as soon as they are available, keeping only most recent one
   def _reader(self):
     while True:
       ret, frame = self.cap.read()
@@ -32,13 +31,18 @@ class VideoCapture:
         break
       if not self.q.empty():
         try:
-          self.q.get_nowait()   # discard previous (unprocessed) frame
+          self.q.get_nowait()
         except queue.Empty:
           pass
       self.q.put(frame)
 
   def read(self):
-    return self.q.get()
+    while not self.q.empty():
+      try:
+          self.q.get_nowait()  # discard all frames in the queue
+      except queue.Empty:
+          break
+    return self.q.get()  # get the latest frame
 
 class SimpleTkinterWindow:
     def __init__(self, root, cap, landmarker, numeric_ids = [0,0,0,0,0]):
@@ -82,7 +86,9 @@ class SimpleTkinterWindow:
 
         face_landmarks, frame = get_face_landmarks(self.cap, self.landmarker)
 
-        if (face_landmarks is None or frame is None): return
+        if (face_landmarks is None or frame is None):
+            print("No face detected")
+            return
 
         left_eye_landmarks = [33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7]
         left_pupil_landmarks = [471, 470, 469, 472, 468]
@@ -131,7 +137,7 @@ class SimpleTkinterWindow:
         cv2.imwrite(new_file_path_r, np.array(right_eye_image))
 
 def opencv_config():
-    cap = VideoCapture('/dev/video0')
+    cap = VideoCapture('udp://localhost:12345')
 
     BaseOptions = mp.tasks.BaseOptions
     FaceLandmarker = mp.tasks.vision.FaceLandmarker
