@@ -1,4 +1,7 @@
+/data/*.png
 /dataset/*.png
 venv
 .env
 landmarks.csv
+.DS_Store
+data.zip
