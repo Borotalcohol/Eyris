@@ -7,7 +7,7 @@ let session: ort.InferenceSession | null;
 export async function initializeDirectionClassifierModel() {
   // Create session and set options.
   session = await ort.InferenceSession.create(
-    "./_next/static/chunks/pages/eye_direction_classifier.onnx",
+    "./_next/static/chunks/pages/eye_direction_classifier_2.onnx",
     { executionProviders: ["webgl"], graphOptimizationLevel: "all" }
   );
   // console.log("Inference session created");
