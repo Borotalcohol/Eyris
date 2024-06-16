@@ -5,6 +5,8 @@ import {
   PauseIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   token: string;
@@ -172,25 +174,54 @@ const PlaybackComponent: VFC<Props> = ({
     await player!.togglePlay();
   };
 
-  if (!player) {
+  if (!player || !isActive) {
     return (
       <>
-        <div className="w-full">
-          <div className="flex items-center justify-center text-center text-white">
-            <p>Waiting for Spotify Player initialization...</p>
-          </div>
-        </div>
-      </>
-    );
-  } else if (!isActive) {
-    return (
-      <>
-        <div className="w-full">
-          <div className="flex items-center justify-center text-center text-white">
-            <p>
-              Instance not active. Transfer your playback using your Spotify app
-            </p>
-          </div>
+        <div className="flex flex-col items-center justify-center w-full gap-4 text-center text-white">
+          <h2 className="py-4 m-0 text-xl font-bold md:text-2xl lg:text-3xl xl:text-4xl">
+            Let's Get You Started!
+          </h2>
+          <ol className="flex flex-col items-center justify-center gap-6 list-decimal">
+            <li>
+              <p className="text-sm text-white md:text-md lg:text-lg">
+                Open Spotify's website by clicking this link:{" "}
+                <Link
+                  href="https://spotify.com"
+                  target="_blank"
+                  className="!underline !font-bold text-[#1ED760]"
+                >
+                  https://spotify.com
+                </Link>{" "}
+                (log in if prompted)
+              </p>
+            </li>
+            <li>
+              <p className="text-sm text-white md:text-md lg:text-lg">
+                In the bottom right corner of the window, click on the{" "}
+                <b>“Connect to a Device”</b> button
+              </p>
+            </li>
+            <Image
+              src="/tutorial1.png"
+              alt="Connect to a Device Icon"
+              className="mt-4 rounded-md"
+              width={300}
+              height={200}
+            />
+            <li>
+              <p className="text-sm text-white md:text-md lg:text-lg">
+                Select the device named <b>“SpotifEye Playback”</b> and then
+                return to this tab
+              </p>
+            </li>
+            <Image
+              src="/tutorial2.png"
+              alt="SpotifEye Playback Device"
+              className="mt-4 rounded-md"
+              width={240}
+              height={200}
+            />
+          </ol>
         </div>
       </>
     );

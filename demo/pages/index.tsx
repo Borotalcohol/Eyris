@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const useClerkSWR = (url: string) => {
@@ -71,7 +72,10 @@ const Home: NextPage = () => {
           <div className="invisible w-8 h-8">
             <UserButton />
           </div>
-          <div className="flex items-center justify-center gap-3">
+          <Link
+            href="https://spotifeye.christianloschiavo.com"
+            className="flex items-center justify-center gap-3"
+          >
             <Image
               src="/logo128.png"
               alt="SpotifEye Logo"
@@ -80,7 +84,7 @@ const Home: NextPage = () => {
               priority={false}
             />
             <h1 className="m-0 text-3xl font-bold text-white">SpotifEye</h1>
-          </div>
+          </Link>
           <div className="w-8 h-8">
             <UserButton />
           </div>
