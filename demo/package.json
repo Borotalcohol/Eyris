@@ -16,6 +16,7 @@
     "@clerk/themes": "^1.7.10",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@headlessui/react": "^2.0.4",
     "@heroicons/react": "^2.1.1",
     "@mediapipe/tasks-vision": "0.10.9",
     "@mui/material": "^5.15.14",

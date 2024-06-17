@@ -1,18 +1,19 @@
 import Head from "next/head";
-import Script from "next/script";
 import Image from "next/image";
 
 import PredictionWindow from "../utils/predictionWindow";
 import PlaybackComponent from "../components/Playback";
 import WebcamComponent from "../components/Webcam";
 
+import type { NextPage } from "next";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { useDialog } from "../utils/DialogContext";
 
-import useSWR from "swr";
-
-import type { NextPage } from "next";
 import Link from "next/link";
+import useSWR from "swr";
 
 const Home: NextPage = () => {
   const useClerkSWR = (url: string) => {
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
   const { data, error, isLoading } = useClerkSWR("/api/getSpotifyAccessToken");
   const [accessToken, setAccessToken] = useState(null);
   const [direction, setDirection] = useState<string | null>(null);
+  const { openDialog } = useDialog();
 
   const predictionWindow = new PredictionWindow(10);
 
@@ -69,12 +71,18 @@ const Home: NextPage = () => {
 
       <main className="flex flex-col items-center w-full h-full">
         <header className="flex items-center justify-between w-full px-4 py-4">
-          <div className="invisible w-8 h-8">
-            <UserButton />
+          <div className="flex justify-start flex-1 mr-auto text-white">
+            <button
+              onClick={openDialog}
+              className="flex items-center gap-2 px-3 py-2 transition-colors duration-300 rounded-xl text-md xl:text-lg font-avenir hover:bg-black/20"
+            >
+              <InformationCircleIcon className="w-8 h-8 text-white" />
+              <p>Tutorial</p>
+            </button>
           </div>
           <Link
             href="https://spotifeye.christianloschiavo.com"
-            className="flex items-center justify-center gap-3"
+            className="flex items-center ml-[-15px] justify-center flex-1 gap-3"
           >
             <Image
               src="/logo128.png"
@@ -85,7 +93,7 @@ const Home: NextPage = () => {
             />
             <h1 className="m-0 text-3xl font-bold text-white">SpotifEye</h1>
           </Link>
-          <div className="w-8 h-8">
+          <div className="flex justify-end flex-1 w-8 h-8 ml-auto">
             <UserButton />
           </div>
         </header>
