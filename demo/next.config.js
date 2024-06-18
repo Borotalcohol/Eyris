@@ -3,7 +3,8 @@ const path = require("path"); // Import the path module
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-module.exports = {
+const nextConfig = {
+  output: "export",
   reactStrictMode: true,
   //distDir: 'build',
   webpack: (config, {}) => {
@@ -38,3 +39,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;
