@@ -80,8 +80,6 @@ const Home: NextPage = () => {
       if (!lastSignIn || now.getTime() - lastSignIn.getTime() < thirtyMinutes) {
         openDialog();
       }
-    } else {
-      console.log("User not signed in");
     }
   }, [isSignedIn, isLoaded]);
 
