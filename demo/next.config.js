@@ -4,9 +4,12 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const nextConfig = {
-  output: "export",
+  // output: "export",
   reactStrictMode: true,
   //distDir: 'build',
+  // images: {
+  //   unoptimized: true,
+  // },
   webpack: (config, {}) => {
     config.resolve.extensions.push(".ts", ".tsx");
     config.resolve.fallback = { fs: false };
