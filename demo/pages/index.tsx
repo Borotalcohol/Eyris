@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDialog } from "../utils/DialogContext";
 
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import useSWR from "swr";
 
 const Home: NextPage = () => {
@@ -29,6 +30,7 @@ const Home: NextPage = () => {
   };
 
   const { data, error, isLoading } = useClerkSWR("/api/getSpotifyAccessToken");
+  const { isSignedIn, user, isLoaded } = useUser();
   const [accessToken, setAccessToken] = useState(null);
   const [direction, setDirection] = useState<string | null>(null);
   const { openDialog } = useDialog();
@@ -43,6 +45,21 @@ const Home: NextPage = () => {
       setAccessToken(null);
     }
   }, [isLoading]);
+
+  useEffect(() => {
+    if (isSignedIn && isLoaded) {
+      // Check that difference between last sign in (if not null) and now is smaller than 1 day
+      const lastSignIn = user?.lastSignInAt;
+      const now = new Date();
+      const thirtyMinutes = 30 * 60 * 1000;
+
+      if (!lastSignIn || now.getTime() - lastSignIn.getTime() < thirtyMinutes) {
+        openDialog();
+      }
+    } else {
+      console.log("User not signed in");
+    }
+  }, [isSignedIn, isLoaded]);
 
   const handleNewPrediction = (predictedDirection: string) => {
     predictionWindow.append(predictedDirection);
