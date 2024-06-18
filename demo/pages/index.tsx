@@ -8,6 +8,7 @@ import WebcamComponent from "../components/Webcam";
 import type { NextPage } from "next";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
+import { Metadata } from "next";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { useDialog } from "../utils/DialogContext";
@@ -15,6 +16,29 @@ import { useDialog } from "../utils/DialogContext";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import useSWR from "swr";
+
+export const metadata: Metadata = {
+  title: "Demo SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+  description:
+    "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+  keywords:
+    "Spotify, Eye Tracking, Song, Music, Artificial Intelligence, AI, Next.js",
+  alternates: {
+    canonical: "/en",
+    languages: {
+      en: "/en",
+    },
+  },
+  openGraph: {
+    title: "SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+    description:
+      "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+    type: "website",
+    locale: "en_US",
+    siteName: "SpotifEye",
+    images: ["/opengraph-image.png"],
+  },
+};
 
 const Home: NextPage = () => {
   const useClerkSWR = (url: string) => {
