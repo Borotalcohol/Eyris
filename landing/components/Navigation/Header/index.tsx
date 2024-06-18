@@ -93,7 +93,12 @@ function Header() {
           </ul>
         </div>
         <div className="items-center justify-end hidden col-span-3 xl:flex">
-          <PrimaryButton onClick={openDialog}>Try Demo</PrimaryButton>
+          <Link
+            href="https://demo.spotifeye.christianloschiavo.com"
+            target="_blank"
+          >
+            <PrimaryButton>Try Demo</PrimaryButton>
+          </Link>
         </div>
       </header>
       <div />
@@ -136,9 +141,12 @@ function Header() {
             </button>
           </li>
         </ul>
-        <PrimaryButton onClick={openDialog} className="w-full mt-8">
-          Try Demo
-        </PrimaryButton>
+        <Link
+          href="https://demo.spotifeye.christianloschiavo.com"
+          target="_blank"
+        >
+          <PrimaryButton className="w-full mt-8">Try Demo</PrimaryButton>
+        </Link>
       </motion.div>
     </div>
   );

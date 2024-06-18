@@ -24,9 +24,12 @@ function Hero() {
           using your eyes.
         </p>
         <div className="flex flex-col items-center gap-4 md:flex-row w-max">
-          <PrimaryButton onClick={openDialog} className="w-full md:w-auto">
-            Try Demo
-          </PrimaryButton>
+          <Link
+            href="https://demo.spotifeye.christianloschiavo.com"
+            target="_blank"
+          >
+            <PrimaryButton className="w-full md:w-auto">Try Demo</PrimaryButton>
+          </Link>
           <Link href="#how-its-made" className="w-full md:w-auto">
             <SecondaryButton>How It Works</SecondaryButton>
           </Link>
