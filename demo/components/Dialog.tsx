@@ -48,6 +48,7 @@ function TutorialDialog() {
         alt="Eyes Blinking"
         width={300}
         height={300}
+        unoptimized
       />
     </>,
     <>
@@ -60,6 +61,7 @@ function TutorialDialog() {
         alt="Eyes Watching Left"
         width={300}
         height={300}
+        unoptimized
       />
     </>,
     <>
@@ -72,6 +74,7 @@ function TutorialDialog() {
         alt="Eyes Watching Right"
         width={300}
         height={300}
+        unoptimized
       />
     </>,
     <>
@@ -84,6 +87,7 @@ function TutorialDialog() {
         alt="Eyes Watching Up"
         width={300}
         height={300}
+        unoptimized
       />
     </>,
   ];
