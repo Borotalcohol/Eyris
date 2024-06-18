@@ -62,12 +62,12 @@ function Header() {
             <Image
               className="w-8 xl:w-10"
               src="/LogoGreenBlack.svg"
-              alt="SpotifEye Logo"
+              alt="Eyris Logo"
               width={42}
               height={42}
             />
             <h3 className="text-2xl xl:text-3xl font-[800] text-white font-gotham !mb-2">
-              SpotifEye
+              Eyris
             </h3>
           </div>
           <button className="flex items-center justify-center invisible xl:hidden">
@@ -79,7 +79,7 @@ function Header() {
           </button>
           <ul className="items-end gap-8 text-lg font-[400] text-white font-avenir hidden xl:flex">
             <li>
-              <Link href="#description">What is SpotifEye</Link>
+              <Link href="#description">What is Eyris</Link>
             </li>
             <li>
               <Link href="#how-its-made">How it&apos;s Made</Link>
@@ -94,7 +94,7 @@ function Header() {
         </div>
         <div className="items-center justify-end hidden col-span-3 xl:flex">
           <Link
-            href="https://demo.spotifeye.christianloschiavo.com"
+            href="https://demo.eyris.christianloschiavo.com"
             target="_blank"
           >
             <PrimaryButton>Try Demo</PrimaryButton>
@@ -124,7 +124,7 @@ function Header() {
         <ul className="flex flex-col gap-6">
           <li>
             <button onClick={() => handleLinkClick("#description")}>
-              What is SpotifEye
+              What is Eyris
             </button>
           </li>
           <li>
@@ -141,10 +141,7 @@ function Header() {
             </button>
           </li>
         </ul>
-        <Link
-          href="https://demo.spotifeye.christianloschiavo.com"
-          target="_blank"
-        >
+        <Link href="https://demo.eyris.christianloschiavo.com" target="_blank">
           <PrimaryButton className="w-full mt-8">Try Demo</PrimaryButton>
         </Link>
       </motion.div>

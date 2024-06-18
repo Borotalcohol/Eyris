@@ -25,7 +25,7 @@ function Hero() {
         </p>
         <div className="flex flex-col items-center gap-4 md:flex-row w-max">
           <Link
-            href="https://demo.spotifeye.christianloschiavo.com"
+            href="https://demo.eyris.christianloschiavo.com"
             target="_blank"
           >
             <PrimaryButton className="w-full md:w-auto">Try Demo</PrimaryButton>

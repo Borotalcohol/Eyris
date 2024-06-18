@@ -25,9 +25,9 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: "SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+  title: "Eyris: Control Spotify Song Reproduction using your Eyes!",
   description:
-    "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+    "Unlock the power of your gaze with Eyris! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with Eyris!",
   keywords:
     "Spotify, Eye Tracking, Song, Music, Artificial Intelligence, AI, Next.js",
   alternates: {
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+    title: "Eyris: Control Spotify Song Reproduction using your Eyes!",
     description:
-      "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+      "Unlock the power of your gaze with Eyris! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with Eyris!",
     type: "website",
     locale: "en_US",
-    siteName: "SpotifEye",
+    siteName: "Eyris",
     images: ["/opengraph-image.png"],
   },
 };

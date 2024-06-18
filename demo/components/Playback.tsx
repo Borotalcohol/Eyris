@@ -41,7 +41,7 @@ const PlaybackComponent: VFC<Props> = ({
 
       window.onSpotifyWebPlaybackSDKReady = () => {
         const _player = new Spotify.Player({
-          name: "SpotifEye Playback",
+          name: "Eyris Playback",
           getOAuthToken: (cb) => {
             cb(token);
           },
@@ -202,24 +202,24 @@ const PlaybackComponent: VFC<Props> = ({
               </p>
             </li>
             <Image
-              src="/tutorial1.png"
+              src="/tutorial1.jpeg"
               alt="Connect to a Device Icon"
               className="mt-4 rounded-md"
-              width={300}
-              height={200}
+              width={350}
+              height={250}
             />
             <li>
               <p className="text-sm text-white md:text-md lg:text-lg">
-                Select the device named <b>“SpotifEye Playback”</b> and then
-                return to this tab
+                Select the device named <b>"Eyris Playback”</b> and then return
+                to this tab
               </p>
             </li>
             <Image
-              src="/tutorial2.png"
-              alt="SpotifEye Playback Device"
+              src="/tutorial2.jpeg"
+              alt="Eyris Playback Device"
               className="mt-4 rounded-md"
-              width={240}
-              height={200}
+              width={320}
+              height={320}
             />
           </ol>
         </div>

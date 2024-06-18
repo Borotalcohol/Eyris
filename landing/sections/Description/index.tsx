@@ -5,11 +5,11 @@ function Description() {
     <section className="relative flex flex-col items-center justify-center w-full col-span-12 px-6 pt-10 pb-24 text-center text-white xl:pt-16 bg-gray">
       <div id="description" className="absolute top-0 mt-[-100px] w-full h-6" />
       <h2 className="text-3xl font-black xl:text-4xl font-gotham">
-        What is SpotifEye?
+        What is Eyris?
       </h2>
       <hr className="w-full h-px max-w-lg my-6 border-none bg-white/20" />
       <p className="max-w-5xl text-md xl:text-lg font-avenir">
-        <b>SpotifEye</b> is an academic project realized by{" "}
+        <b>Eyris</b> is an academic project realized by{" "}
         <b>Christian Loschiavo</b> and <b>Alessandro Ruben Jarach</b>.<br />
         <br />
         The project was issued for final examination of a course named{" "}

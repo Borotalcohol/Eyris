@@ -18,9 +18,9 @@ import { useUser } from "@clerk/nextjs";
 import useSWR from "swr";
 
 export const metadata: Metadata = {
-  title: "Demo SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+  title: "Demo Eyris: Control Spotify Song Reproduction using your Eyes!",
   description:
-    "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+    "Unlock the power of your gaze with Eyris! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with Eyris!",
   keywords:
     "Spotify, Eye Tracking, Song, Music, Artificial Intelligence, AI, Next.js",
   alternates: {
@@ -30,12 +30,12 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "SpotifEye: Control Spotify Song Reproduction using your Eyes!",
+    title: "Eyris: Control Spotify Song Reproduction using your Eyes!",
     description:
-      "Unlock the power of your gaze with SpotifEye! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with SpotifEye!",
+      "Unlock the power of your gaze with Eyris! Seamlessly control your Spotify playlist using just your eyes. Explore hands-free music control like never before. Get started today and elevate your Spotify journey with Eyris!",
     type: "website",
     locale: "en_US",
-    siteName: "SpotifEye",
+    siteName: "Eyris",
     images: ["/opengraph-image.png"],
   },
 };
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
   return (
     <div className="h-full">
       <Head>
-        <title>SpotifEye Demo</title>
+        <title>Eyris Demo</title>
         <meta
           name="description"
           content="A webapp to control Spotify songs reproduction using your eye-gaze"
@@ -120,17 +120,17 @@ const Home: NextPage = () => {
             </button>
           </div>
           <Link
-            href="https://spotifeye.christianloschiavo.com"
+            href="https://eyris.christianloschiavo.com"
             className="flex items-center ml-[-15px] justify-center flex-1 gap-3"
           >
             <Image
               src="/logo128.png"
-              alt="SpotifEye Logo"
+              alt="Eyris Logo"
               width={40}
               height={40}
               priority={false}
             />
-            <h1 className="m-0 text-3xl font-bold text-white">SpotifEye</h1>
+            <h1 className="m-0 text-3xl font-bold text-white">Eyris</h1>
           </Link>
           <div className="flex justify-end flex-1 w-8 h-8 ml-auto">
             <UserButton />
