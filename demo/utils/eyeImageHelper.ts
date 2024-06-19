@@ -104,59 +104,72 @@ export const createEyeImage = (
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  try {
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  const minX =
-    eyePositions.reduce((min, pos) => Math.min(pos.x, min), eyePositions[0].x) *
-    canvas.width;
-  const maxX =
-    eyePositions.reduce((max, pos) => Math.max(pos.x, max), eyePositions[0].x) *
-    canvas.width;
-  const minY =
-    eyePositions.reduce((min, pos) => Math.min(pos.y, min), eyePositions[0].y) *
-    canvas.height;
-  const maxY =
-    eyePositions.reduce((max, pos) => Math.max(pos.y, max), eyePositions[0].y) *
-    canvas.height;
+    const minX =
+      eyePositions.reduce(
+        (min, pos) => Math.min(pos.x, min),
+        eyePositions[0].x
+      ) * canvas.width;
+    const maxX =
+      eyePositions.reduce(
+        (max, pos) => Math.max(pos.x, max),
+        eyePositions[0].x
+      ) * canvas.width;
+    const minY =
+      eyePositions.reduce(
+        (min, pos) => Math.min(pos.y, min),
+        eyePositions[0].y
+      ) * canvas.height;
+    const maxY =
+      eyePositions.reduce(
+        (max, pos) => Math.max(pos.y, max),
+        eyePositions[0].y
+      ) * canvas.height;
 
-  const imageData = ctx.getImageData(minX, minY, maxX - minX, maxY - minY);
+    const imageData = ctx.getImageData(minX, minY, maxX - minX, maxY - minY);
 
-  const croppedCanvas = document.createElement("canvas");
-  const croppedCtx = croppedCanvas.getContext("2d");
+    const croppedCanvas = document.createElement("canvas");
+    const croppedCtx = croppedCanvas.getContext("2d");
 
-  if (!croppedCtx) return null;
+    if (!croppedCtx) return null;
 
-  croppedCanvas.width = maxX - minX;
-  croppedCanvas.height = maxY - minY;
-  croppedCtx.putImageData(imageData, 0, 0);
+    croppedCanvas.width = maxX - minX;
+    croppedCanvas.height = maxY - minY;
+    croppedCtx.putImageData(imageData, 0, 0);
 
-  // Create a new canvas for the enlarged image
-  const enlargedCanvas = document.createElement("canvas");
-  const enlargedCtx = enlargedCanvas.getContext("2d");
+    // Create a new canvas for the enlarged image
+    const enlargedCanvas = document.createElement("canvas");
+    const enlargedCtx = enlargedCanvas.getContext("2d");
 
-  if (!enlargedCtx) return null;
+    if (!enlargedCtx) return null;
 
-  enlargedCanvas.width = 200;
-  enlargedCanvas.height = 100;
+    enlargedCanvas.width = 200;
+    enlargedCanvas.height = 100;
 
-  enlargedCtx.scale(-1, 1);
+    enlargedCtx.scale(-1, 1);
 
-  // Draw the cropped image onto the enlarged canvas with a larger scale
-  enlargedCtx.drawImage(
-    croppedCanvas,
-    0,
-    0,
-    croppedCanvas.width,
-    croppedCanvas.height,
-    -enlargedCanvas.width,
-    0,
-    enlargedCanvas.width,
-    enlargedCanvas.height
-  );
+    // Draw the cropped image onto the enlarged canvas with a larger scale
+    enlargedCtx.drawImage(
+      croppedCanvas,
+      0,
+      0,
+      croppedCanvas.width,
+      croppedCanvas.height,
+      -enlargedCanvas.width,
+      0,
+      enlargedCanvas.width,
+      enlargedCanvas.height
+    );
 
-  // Create an image element and set its source to the enlarged canvas
-  const enlargedImage = new Image();
-  enlargedImage.src = enlargedCanvas.toDataURL();
+    // Create an image element and set its source to the enlarged canvas
+    const enlargedImage = new Image();
+    enlargedImage.src = enlargedCanvas.toDataURL();
 
-  return enlargedImage;
+    return enlargedImage;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
 };

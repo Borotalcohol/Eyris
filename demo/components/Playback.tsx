@@ -76,6 +76,8 @@ const PlaybackComponent: VFC<Props> = ({
           return;
         }
 
+        console.log(state.track_window.current_track);
+
         setTrack(state.track_window.current_track);
         setReproductionProgress({
           progress_ms: state.position,
@@ -261,8 +263,21 @@ const PlaybackComponent: VFC<Props> = ({
                 />
               ) : null}
 
-              <div className="flex flex-col w-full gap-3 mt-5">
-                <h2 className="m-0 text-2xl font-bold md:text-3xl lg:text-4xl xl:text-5xl">
+              <div className="flex flex-col w-full gap-3">
+                <Link
+                  href={currentTrack!.uri}
+                  target="_blank"
+                  className="px-3 py-1 bg-white !font-avenir rounded-full text-[#131313] !text-sm !font-medium flex items-center gap-2 !w-fit"
+                >
+                  <Image
+                    src="/Spotify_Icon_RGB_Black.png"
+                    alt="Spotify Icon Logo"
+                    width={22}
+                    height={22}
+                  />
+                  <p>LISTEN ON SPOTIFY</p>
+                </Link>
+                <h2 className="m-0 mt-3 text-xl font-bold md:text-2xl lg:text-3xl xl:text-4xl">
                   {currentTrack?.name}
                 </h2>
                 <p className="mt-0 font-medium md:mt-1 xl:mt-3 text-md md:text-lg lg:text-xl xl:text-2xl">
@@ -296,6 +311,18 @@ const PlaybackComponent: VFC<Props> = ({
               <ForwardIcon className="w-8 h-8 text-white lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
             </button>
           </div>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center w-full py-4 text-sm font-normal border-t font-avenir text-white/40 border-white/30">
+          All rights to the songs and music player are reserved to{" "}
+          <Image
+            className="mx-3"
+            src="/Spotify_Logo_RGB_White.png"
+            width={80}
+            height={24}
+            alt="Spotify Icon"
+          />{" "}
+          and the respective artists.
         </div>
       </>
     );

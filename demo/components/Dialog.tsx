@@ -34,6 +34,15 @@ function TutorialDialog() {
 
   const steps = [
     <>
+      <p className="my-4 text-center text-white/70 text-md xl:text-lg font-avenir">
+        Eyris is designed to be used on desktop and laptop devices and requires
+        a webcam and access to it for proper functionality. This application is
+        a demo, and the model is still under development and improvement. For
+        optimal performance, please use Eyris in a well-lit environment while
+        seated at a desk.
+      </p>
+    </>,
+    <>
       <p className="mt-2 text-center text-white/70 text-md xl:text-lg font-avenir">
         To activate the eye-gaze control, just look at the screen and close your
         eyes, until you hear the "activated" voice. When you want to deactivate
@@ -115,7 +124,7 @@ function TutorialDialog() {
                   as="h3"
                   className="text-2xl font-semibold text-center text-white font-gotham"
                 >
-                  How Does It Work?
+                  {step > 0 ? "How Does It Work?" : "Disclaimer"}
                 </DialogTitle>
                 {steps[step]}
                 <div className="flex items-center justify-between w-full pt-4 mt-4 border-t border-white/30">
