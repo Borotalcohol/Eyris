@@ -121,10 +121,11 @@ const Home: NextPage = () => {
           </div>
           <Link
             href="https://eyris.christianloschiavo.com"
-            className="flex items-center ml-[-15px] justify-center flex-1 gap-3"
+            className="flex items-center ml-[-15px] justify-center flex-1 gap-2"
           >
             <Image
               src="/logo128.png"
+              className="!mb-2"
               alt="Eyris Logo"
               width={40}
               height={40}

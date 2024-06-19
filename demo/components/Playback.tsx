@@ -188,7 +188,7 @@ const PlaybackComponent: VFC<Props> = ({
                 <Link
                   href="https://spotify.com"
                   target="_blank"
-                  className="!underline !font-bold text-[#1ED760]"
+                  className="!underline !font-bold text-[#5087F6]"
                 >
                   https://spotify.com
                 </Link>{" "}
