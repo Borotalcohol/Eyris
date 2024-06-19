@@ -60,13 +60,13 @@ function Header() {
           </button>
           <div className="flex items-center gap-3">
             <Image
-              className="w-8 xl:w-10"
-              src="/LogoGreenBlack.svg"
+              className="w-8 xl:w-10 !mb-2"
+              src="/Logo.svg"
               alt="Eyris Logo"
               width={42}
               height={42}
             />
-            <h3 className="text-2xl xl:text-3xl font-[800] text-white font-gotham !mb-2">
+            <h3 className="text-2xl xl:text-3xl font-[800] text-white font-gotham">
               Eyris
             </h3>
           </div>

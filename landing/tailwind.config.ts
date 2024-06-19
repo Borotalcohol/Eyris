@@ -22,8 +22,8 @@ const config: Config = {
           "linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0))",
       },
       colors: {
-        accent: "#1ED760",
-        "dark-accent": "#73f5a2",
+        accent: "#5087F6",
+        "dark-accent": "#3a70de",
         purple: "#E6A9FB",
         ochre: "#FBE9A9",
         gray: "#2D2D2D",

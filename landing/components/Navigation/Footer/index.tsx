@@ -6,8 +6,14 @@ function Footer() {
       id="footer"
       className="flex flex-col items-center col-span-12 px-6 pt-12 pb-24 text-center text-white xl:px-0 bg-darkest-gray"
     >
-      <div className="flex items-center gap-3">
-        <Image src="/LogoWhite.svg" alt="Eyris Logo" width={42} height={42} />
+      <div className="flex items-center gap-2">
+        <Image
+          src="/Logo.svg"
+          className="!mb-4"
+          alt="Eyris Logo"
+          width={42}
+          height={42}
+        />
         <h3 className="text-3xl font-[800] text-white font-gotham !mb-2">
           Eyris
         </h3>

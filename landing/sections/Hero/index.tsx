@@ -47,7 +47,7 @@ function Hero() {
         height={400}
         priority
       />
-      <div className="w-full pointer-events-none h-full absolute top-0 left-0 z-[-2] bg-gradient-to-t xl:bg-gradient-to-br from-10% xl:from-25% from-darkest-gray to-[#134324]" />
+      <div className="w-full pointer-events-none h-full absolute top-0 left-0 z-[-2] bg-gradient-to-t xl:bg-gradient-to-br from-10% xl:from-25% from-darkest-gray to-[#132f43]" />
     </div>
   );
 }
