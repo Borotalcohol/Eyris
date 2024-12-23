@@ -168,8 +168,8 @@ export const createEyeImage = (
     enlargedImage.src = enlargedCanvas.toDataURL();
 
     return enlargedImage;
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     return null;
   }
 };
