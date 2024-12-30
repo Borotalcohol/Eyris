@@ -10,6 +10,7 @@ import "@/styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ClerkProvider
+      dynamic
       appearance={{
         baseTheme: dark,
       }}
